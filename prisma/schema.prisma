@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Job {
+  id               String   @id @default(uuid())
+  title            String
+  company          String
+  companyLogo      String
+  location         String
+  type             String
+  experience       String
+  category         String
+  salaryMin        Int?
+  salaryMax        Int?
+  workMode         String?
+  description      String
+  responsibilities String   // JSON stringified array
+  requirements     String   // JSON stringified array
+  skills           String   // JSON stringified array
+  applicationUrl   String
+  source           String
+  featured         Boolean  @default(false)
+  verified         Boolean  @default(false)
+  status           String   @default("active")
+  postedAt         DateTime @default(now())
+  deadline         DateTime?
+}
+
+model PageVisit {
+  id        String   @id @default(uuid())
+  path      String
+  jobId     String?  // Optional relation to Job, if the visit was on a job details page
+  visitedAt DateTime @default(now())
+}
+
+model Subscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model SiteContent {
+  section   String   @id
+  data      String
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  icon      String   // E.g., "code", "pen", "megaphone"
+  createdAt DateTime @default(now())
+}
