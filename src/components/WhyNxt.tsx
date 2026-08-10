@@ -26,9 +26,9 @@ const points = [
   },
 ];
 
-export default function WhyJobly({ content }: { content?: any }) {
+export default function WhyNxt({ content }: { content?: any }) {
   const c = content || {
-    title: "Why Jobly?",
+    title: "Why NXT.?",
     points: [
       { title: "Refreshed every 24 hours", text: "Our team reviews and adds new roles daily so you’re never looking at stale listings." },
       { title: "Apply in seconds", text: "No 10-step forms. See a role, click through, and land directly on the company’s application page." },

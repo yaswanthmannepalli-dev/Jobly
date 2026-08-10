@@ -41,10 +41,15 @@ export default async function SiteFooter() {
             <p className="mt-4 text-sm text-muted leading-relaxed whitespace-pre-line">
               {c.tagline}
             </p>
-            <div className="mt-6 flex items-center gap-4">
-              <a href="#" className="text-muted hover:text-[#25D366] transition-colors"><WhatsApp size={20} /></a>
-              <a href="#" className="text-muted hover:text-[#E1306C] transition-colors"><Instagram size={20} /></a>
-              <a href="#" className="text-muted hover:text-[#1877F2] transition-colors"><Facebook size={20} /></a>
+            <div className="mt-6 flex flex-col gap-4">
+              <a href="mailto:contact@nxt.com" className="text-sm font-medium text-foreground hover:text-purple transition-colors">
+                contact@nxt.com
+              </a>
+              <div className="flex items-center gap-4">
+                <a href="#" className="text-muted hover:text-[#25D366] transition-colors"><WhatsApp size={20} /></a>
+                <a href="#" className="text-muted hover:text-[#E1306C] transition-colors"><Instagram size={20} /></a>
+                <a href="#" className="text-muted hover:text-[#1877F2] transition-colors"><Facebook size={20} /></a>
+              </div>
             </div>
           </div>
 
@@ -61,9 +66,9 @@ export default async function SiteFooter() {
             <div>
               <h4 className="text-sm font-semibold text-foreground">Legal</h4>
               <ul className="mt-4 space-y-3 text-sm text-muted">
-                <li><Link className="link-underline" href="#">Privacy Policy</Link></li>
-                <li><Link className="link-underline" href="#">Terms of Service</Link></li>
-                <li><Link className="link-underline" href="#">Cookie Policy</Link></li>
+                <li><Link className="link-underline" href="/privacy-policy">Privacy Policy</Link></li>
+                <li><Link className="link-underline" href="/terms-of-service">Terms and Conditions</Link></li>
+                <li><Link className="link-underline" href="/cookie-policy">Cookie Policy</Link></li>
               </ul>
             </div>
           </div>

@@ -4,22 +4,22 @@ import { useState } from "react";
 import { updateSiteContent } from "@/app/actions/cms";
 import { Loader2, Save } from "lucide-react";
 
-export default function CMSClient({ initialHero, initialNewsletter, initialWhyJobly, initialFooter, initialSeo }: any) {
+export default function CMSClient({ initialHero, initialNewsletter, initialWhyNxt, initialFooter, initialSeo }: any) {
   const [hero, setHero] = useState(initialHero);
   const [newsletter, setNewsletter] = useState(initialNewsletter);
-  const [whyJobly, setWhyJobly] = useState(initialWhyJobly);
+  const [whyNxt, setWhyNxt] = useState(initialWhyNxt);
   const [footer, setFooter] = useState(initialFooter);
   const [seo, setSeo] = useState(initialSeo);
   
   const [savingHero, setSavingHero] = useState(false);
   const [savingNewsletter, setSavingNewsletter] = useState(false);
-  const [savingWhyJobly, setSavingWhyJobly] = useState(false);
+  const [savingWhyNxt, setSavingWhyNxt] = useState(false);
   const [savingFooter, setSavingFooter] = useState(false);
   const [savingSeo, setSavingSeo] = useState(false);
   
   const [heroMessage, setHeroMessage] = useState("");
   const [newsletterMessage, setNewsletterMessage] = useState("");
-  const [whyJoblyMessage, setWhyJoblyMessage] = useState("");
+  const [whyNxtMessage, setWhyNxtMessage] = useState("");
   const [footerMessage, setFooterMessage] = useState("");
   const [seoMessage, setSeoMessage] = useState("");
 
@@ -45,15 +45,15 @@ export default function CMSClient({ initialHero, initialNewsletter, initialWhyJo
     setTimeout(() => setNewsletterMessage(""), 3000);
   };
 
-  const handleSaveWhyJobly = async (e: React.FormEvent) => {
+  const handleSaveWhyNxt = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSavingWhyJobly(true);
-    setWhyJoblyMessage("");
-    const res = await updateSiteContent("whyJobly", whyJobly);
-    setSavingWhyJobly(false);
-    if (res.success) setWhyJoblyMessage(res.message || "Success");
-    else setWhyJoblyMessage(res.error || "Failed");
-    setTimeout(() => setWhyJoblyMessage(""), 3000);
+    setSavingWhyNxt(true);
+    setWhyNxtMessage("");
+    const res = await updateSiteContent("whyNxt", whyNxt);
+    setSavingWhyNxt(false);
+    if (res.success) setWhyNxtMessage(res.message || "Success");
+    else setWhyNxtMessage(res.error || "Failed");
+    setTimeout(() => setWhyNxtMessage(""), 3000);
   };
 
   const handleSaveFooter = async (e: React.FormEvent) => {
@@ -78,10 +78,10 @@ export default function CMSClient({ initialHero, initialNewsletter, initialWhyJo
     setTimeout(() => setSeoMessage(""), 3000);
   };
 
-  const updateWhyJoblyPoint = (index: number, field: string, value: string) => {
-    const newPoints = [...whyJobly.points];
+  const updateWhyNxtPoint = (index: number, field: string, value: string) => {
+    const newPoints = [...whyNxt.points];
     newPoints[index] = { ...newPoints[index], [field]: value };
-    setWhyJobly({ ...whyJobly, points: newPoints });
+    setWhyNxt({ ...whyNxt, points: newPoints });
   };
 
   return (
@@ -181,33 +181,33 @@ export default function CMSClient({ initialHero, initialNewsletter, initialWhyJo
         </form>
       </section>
 
-      {/* Why Jobly Section Form */}
+      {/* Why NXT. Section Form */}
       <section className="bg-white rounded-2xl border border-line shadow-sm overflow-hidden">
         <div className="bg-surface px-6 py-4 border-b border-line">
-          <h2 className="font-semibold text-lg">Why Jobly Section</h2>
+          <h2 className="font-semibold text-lg">Why NXT. Section</h2>
           <p className="text-sm text-muted">The features and benefits section.</p>
         </div>
-        <form onSubmit={handleSaveWhyJobly} className="p-6 flex flex-col gap-6">
+        <form onSubmit={handleSaveWhyNxt} className="p-6 flex flex-col gap-6">
           <div>
             <label className="block text-sm font-medium mb-1">Section Title</label>
             <input 
               type="text" 
-              value={whyJobly.title} 
-              onChange={e => setWhyJobly({...whyJobly, title: e.target.value})} 
+              value={whyNxt.title} 
+              onChange={e => setWhyNxt({...whyNxt, title: e.target.value})} 
               className="w-full px-4 py-2 border border-line rounded-lg bg-surface/50 focus:bg-white focus:outline-purple"
               required 
             />
           </div>
           <div className="space-y-4">
             <h3 className="font-medium text-sm border-b border-line pb-2">Feature Points</h3>
-            {whyJobly.points.map((point: any, idx: number) => (
+            {whyNxt.points.map((point: any, idx: number) => (
               <div key={idx} className="p-4 border border-line rounded-lg bg-surface/20 flex flex-col gap-3">
                 <div>
                   <label className="block text-xs font-medium text-muted mb-1">Point {idx + 1} Title</label>
                   <input 
                     type="text" 
                     value={point.title} 
-                    onChange={e => updateWhyJoblyPoint(idx, "title", e.target.value)} 
+                    onChange={e => updateWhyNxtPoint(idx, "title", e.target.value)} 
                     className="w-full px-3 py-1.5 border border-line rounded-md text-sm"
                     required 
                   />
@@ -216,7 +216,7 @@ export default function CMSClient({ initialHero, initialNewsletter, initialWhyJo
                   <label className="block text-xs font-medium text-muted mb-1">Point {idx + 1} Text</label>
                   <textarea 
                     value={point.text} 
-                    onChange={e => updateWhyJoblyPoint(idx, "text", e.target.value)} 
+                    onChange={e => updateWhyNxtPoint(idx, "text", e.target.value)} 
                     className="w-full px-3 py-1.5 border border-line rounded-md text-sm"
                     rows={2}
                     required 
@@ -226,14 +226,14 @@ export default function CMSClient({ initialHero, initialNewsletter, initialWhyJo
             ))}
           </div>
           <div className="mt-4 flex items-center justify-between">
-            <p className="text-sm text-green-600 font-medium">{whyJoblyMessage}</p>
+            <p className="text-sm text-green-600 font-medium">{whyNxtMessage}</p>
             <button 
               type="submit" 
-              disabled={savingWhyJobly}
+              disabled={savingWhyNxt}
               className="flex items-center gap-2 bg-purple text-white px-6 py-2.5 rounded-xl font-medium hover:opacity-90 disabled:opacity-70 transition"
             >
-              {savingWhyJobly ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
-              {savingWhyJobly ? "Saving..." : "Save Changes"}
+              {savingWhyNxt ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
+              {savingWhyNxt ? "Saving..." : "Save Changes"}
             </button>
           </div>
         </form>

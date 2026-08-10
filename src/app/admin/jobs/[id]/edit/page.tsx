@@ -1,7 +1,10 @@
 import { prisma } from "@/lib/prisma"
 import { redirect, notFound } from "next/navigation"
+import { revalidatePath } from "next/cache"
+import { getCategories } from "@/app/actions/categories"
 
 export default async function EditJobPage({ params }: { params: Promise<{ id: string }> }) {
+  const categories = await getCategories()
   const { id } = await params
   
   const job = await prisma.job.findUnique({
@@ -17,6 +20,7 @@ export default async function EditJobPage({ params }: { params: Promise<{ id: st
     const company = formData.get("company") as string
     const location = formData.get("location") as string
     const type = formData.get("type") as string
+    const experience = formData.get("experience") as string || "Not specified"
     const category = formData.get("category") as string
     const description = formData.get("description") as string
     const applicationUrl = formData.get("applicationUrl") as string
@@ -27,6 +31,12 @@ export default async function EditJobPage({ params }: { params: Promise<{ id: st
     const status = formData.get("status") as string
     const featured = formData.get("featured") === "on"
 
+    // Parse newline-separated strings into JSON arrays
+    const parseArray = (str: string) => JSON.stringify(str.split('\\n').map(s => s.trim()).filter(Boolean))
+    const responsibilities = parseArray(formData.get("responsibilities") as string || "")
+    const requirements = parseArray(formData.get("requirements") as string || "")
+    const skills = parseArray(formData.get("skills") as string || "")
+
     await prisma.job.update({
       where: { id },
       data: {
@@ -34,16 +44,24 @@ export default async function EditJobPage({ params }: { params: Promise<{ id: st
         company,
         location,
         type,
+        experience,
         category,
         salaryMin,
         salaryMax,
         featured,
         description,
+        responsibilities,
+        requirements,
+        skills,
         applicationUrl,
         status,
       }
     })
 
+    revalidatePath("/")
+    revalidatePath("/categories")
+    revalidatePath("/jobs")
+    revalidatePath(`/jobs/${id}`)
     redirect("/admin/jobs")
   }
 
@@ -60,10 +78,15 @@ export default async function EditJobPage({ params }: { params: Promise<{ id: st
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Company Name</label>
             <input name="company" defaultValue={job.company} required className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple" />
+            <p className="mt-1 text-xs text-muted">"About [Company]" section is automatically generated.</p>
           </div>
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Location</label>
             <input name="location" defaultValue={job.location} placeholder="e.g. Bangalore, Remote" required className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple" />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-foreground">Experience</label>
+            <input name="experience" defaultValue={job.experience} placeholder="e.g. 3+ years, Entry level" required className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple" />
           </div>
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Minimum Salary (₹)</label>
@@ -89,12 +112,9 @@ export default async function EditJobPage({ params }: { params: Promise<{ id: st
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Category</label>
             <select name="category" defaultValue={job.category} className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple">
-              <option value="Development">Development</option>
-              <option value="Design">Design</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Data">Data</option>
-              <option value="Sales">Sales</option>
-              <option value="Support">Support</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.name}>{c.name}</option>
+              ))}
             </select>
           </div>
           <div className="col-span-2">
@@ -107,8 +127,23 @@ export default async function EditJobPage({ params }: { params: Promise<{ id: st
         </div>
         
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">Description</label>
-          <textarea name="description" defaultValue={job.description} rows={8} required className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">Description (Job Overview)</label>
+          <textarea name="description" defaultValue={job.description} rows={4} required className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">Responsibilities (One per line)</label>
+          <textarea name="responsibilities" defaultValue={JSON.parse(job.responsibilities || "[]").join('\\n')} rows={4} placeholder="E.g.&#10;Develop features&#10;Write clean code" className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">Requirements (One per line)</label>
+          <textarea name="requirements" defaultValue={JSON.parse(job.requirements || "[]").join('\\n')} rows={4} placeholder="E.g.&#10;3+ years experience&#10;React.js expert" className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">Job Highlights / Skills (One per line)</label>
+          <textarea name="skills" defaultValue={JSON.parse(job.skills || "[]").join('\\n')} rows={3} placeholder="E.g.&#10;TypeScript&#10;Remote Work" className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
         </div>
 
         <div className="flex items-center gap-3 rounded-xl border border-line bg-surface/50 p-4">

@@ -7,11 +7,11 @@ export default function Loader() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const seen = sessionStorage.getItem("jobly:loaded");
+    const seen = sessionStorage.getItem("nxt:");
     if (seen) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing with sessionStorage, client-only by design
     setVisible(true);
-    sessionStorage.setItem("jobly:loaded", "1");
+    sessionStorage.setItem("nxt:", "1");
     const t = setTimeout(() => setVisible(false), 900);
     return () => clearTimeout(t);
   }, []);
@@ -26,7 +26,7 @@ export default function Loader() {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <div className="flex items-center gap-2 text-2xl font-semibold tracking-tight font-[var(--font-sora)]">
-            <span>Jobly</span>
+            <span>NXT.</span>
             <motion.span
               className="inline-block h-2.5 w-2.5 rounded-full bg-purple"
               animate={{ y: [0, -10, 0], scale: [1, 1.15, 1] }}

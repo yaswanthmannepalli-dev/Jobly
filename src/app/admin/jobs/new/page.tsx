@@ -1,7 +1,10 @@
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
+import { revalidatePath } from "next/cache"
+import { getCategories } from "@/app/actions/categories"
 
-export default function NewJobPage() {
+export default async function NewJobPage() {
+  const categories = await getCategories()
   async function createJob(formData: FormData) {
     "use server"
     
@@ -9,6 +12,7 @@ export default function NewJobPage() {
     const company = formData.get("company") as string
     const location = formData.get("location") as string
     const type = formData.get("type") as string
+    const experience = formData.get("experience") as string || "Not specified"
     const category = formData.get("category") as string
     const description = formData.get("description") as string
     const applicationUrl = formData.get("applicationUrl") as string
@@ -17,6 +21,12 @@ export default function NewJobPage() {
     const salaryMin = salaryMinStr ? parseInt(salaryMinStr) : null
     const salaryMax = salaryMaxStr ? parseInt(salaryMaxStr) : null
     const featured = formData.get("featured") === "on"
+    
+    // Parse newline-separated strings into JSON arrays
+    const parseArray = (str: string) => JSON.stringify(str.split('\\n').map(s => s.trim()).filter(Boolean))
+    const responsibilities = parseArray(formData.get("responsibilities") as string || "")
+    const requirements = parseArray(formData.get("requirements") as string || "")
+    const skills = parseArray(formData.get("skills") as string || "")
 
     await prisma.job.create({
       data: {
@@ -25,21 +35,25 @@ export default function NewJobPage() {
         companyLogo: `https://www.google.com/s2/favicons?sz=128&domain=${applicationUrl.replace(/^https?:\/\//, '').split('/')[0]}`,
         location,
         type,
-        experience: "Not specified",
+        experience,
         category,
         salaryMin,
         salaryMax,
         featured,
+        featured,
         description,
-        responsibilities: "[]",
-        requirements: "[]",
-        skills: "[]",
+        responsibilities,
+        requirements,
+        skills,
         applicationUrl,
-        source: "Jobly Admin",
+        source: "NXT. Admin",
         status: "active",
       }
     })
 
+    revalidatePath("/")
+    revalidatePath("/categories")
+    revalidatePath("/jobs")
     redirect("/admin/jobs")
   }
 
@@ -56,10 +70,15 @@ export default function NewJobPage() {
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Company Name</label>
             <input name="company" required className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple" />
+            <p className="mt-1 text-xs text-muted">"About [Company]" section is automatically generated.</p>
           </div>
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Location</label>
             <input name="location" placeholder="e.g. Bangalore, Remote" required className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple" />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-foreground">Experience</label>
+            <input name="experience" placeholder="e.g. 3+ years, Entry level" required className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple" />
           </div>
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Minimum Salary (₹)</label>
@@ -85,19 +104,31 @@ export default function NewJobPage() {
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Category</label>
             <select name="category" className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple">
-              <option value="Development">Development</option>
-              <option value="Design">Design</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Data">Data</option>
-              <option value="Sales">Sales</option>
-              <option value="Support">Support</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.name}>{c.name}</option>
+              ))}
             </select>
           </div>
         </div>
         
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-foreground">Description</label>
-          <textarea name="description" rows={5} required className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">Description (Job Overview)</label>
+          <textarea name="description" rows={4} required className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">Responsibilities (One per line)</label>
+          <textarea name="responsibilities" rows={4} placeholder="E.g.&#10;Develop features&#10;Write clean code" className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">Requirements (One per line)</label>
+          <textarea name="requirements" rows={4} placeholder="E.g.&#10;3+ years experience&#10;React.js expert" className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">Job Highlights / Skills (One per line)</label>
+          <textarea name="skills" rows={3} placeholder="E.g.&#10;TypeScript&#10;Remote Work" className="w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple"></textarea>
         </div>
 
         <div className="flex items-center gap-3 rounded-xl border border-line bg-surface/50 p-4">

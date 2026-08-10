@@ -35,7 +35,7 @@ export default async function Home() {
     subtitle: "One email, once a day. Only the roles worth your time — zero spam, unsubscribe anytime."
   });
 
-  const whyJoblyContent = await getSiteContent("whyJobly", {
+  const whyNxtContent = await getSiteContent("whyNxt", {
     title: "Why NXT?",
     points: [
       { title: "Refreshed every 24 hours", text: "Our team reviews and adds new roles daily so you’re never looking at stale listings." },
@@ -66,5 +66,5 @@ export default async function Home() {
       } as unknown as Job)
     : parsedJobs[0];
 
-  return <HomeClient jobs={parsedJobs} categories={categories} featuredJob={parsedFeatured} heroContent={heroContent} newsletterContent={newsletterContent} whyJoblyContent={whyJoblyContent} />;
+  return <HomeClient jobs={parsedJobs} categories={categories} featuredJob={parsedFeatured} heroContent={heroContent} newsletterContent={newsletterContent} whyNxtContent={whyNxtContent} />;
 }

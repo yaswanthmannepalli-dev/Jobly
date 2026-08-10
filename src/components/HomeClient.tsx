@@ -6,22 +6,20 @@ import Hero from "@/components/Hero";
 import JobList from "@/components/JobList";
 import CategorySection from "@/components/CategorySection";
 import JobOfTheDay from "@/components/JobOfTheDay";
-import WhyJobly from "@/components/WhyJobly";
+import WhyNxt from "@/components/WhyNxt";
 import WhatsAppSection from "@/components/WhatsAppSection";
 import Newsletter from "@/components/Newsletter";
 import LogoMarquee from "@/components/LogoMarquee";
 import { Job, JobCategory } from "@/lib/types";
 import { motion } from "framer-motion";
 
-function HomeClientContent({ jobs, categories, featuredJob, heroContent, newsletterContent, whyJoblyContent }: { jobs: Job[], categories: any[], featuredJob: Job, heroContent?: any, newsletterContent?: any, whyJoblyContent?: any }) {
+function HomeClientContent({ jobs, categories, featuredJob, heroContent, newsletterContent, whyNxtContent }: { jobs: Job[], categories: any[], featuredJob?: Job, heroContent?: any, newsletterContent?: any, whyNxtContent?: any }) {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
-  const [category, setCategory] = useState<JobCategory | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return jobs
-      .filter((j) => (category ? j.category === category : true))
       .filter((j) =>
         q
           ? j.title.toLowerCase().includes(q) ||
@@ -29,7 +27,7 @@ function HomeClientContent({ jobs, categories, featuredJob, heroContent, newslet
             j.location.toLowerCase().includes(q)
           : true
       )
-  }, [jobs, query, category]);
+  }, [jobs, query]);
 
   return (
     <>
@@ -56,11 +54,11 @@ function HomeClientContent({ jobs, categories, featuredJob, heroContent, newslet
         <JobList jobs={filtered.slice(0, 8)} hidePagination={true} />
       </section>
 
-      <CategorySection jobs={jobs} categories={categories} active={category} onSelect={setCategory} />
+      <CategorySection jobs={jobs} categories={categories} />
 
       <JobOfTheDay job={featuredJob} />
 
-      <WhyJobly content={whyJoblyContent} />
+      <WhyNxt content={whyNxtContent} />
 
       <WhatsAppSection />
 
@@ -69,10 +67,10 @@ function HomeClientContent({ jobs, categories, featuredJob, heroContent, newslet
   );
 }
 
-export default function HomeClient({ jobs, categories, featuredJob, heroContent, newsletterContent, whyJoblyContent }: { jobs: Job[], categories: any[], featuredJob: Job, heroContent?: any, newsletterContent?: any, whyJoblyContent?: any }) {
+export default function HomeClient({ jobs, categories, featuredJob, heroContent, newsletterContent, whyNxtContent }: { jobs: Job[], categories: any[], featuredJob?: Job, heroContent?: any, newsletterContent?: any, whyNxtContent?: any }) {
   return (
     <Suspense fallback={null}>
-      <HomeClientContent jobs={jobs} categories={categories} featuredJob={featuredJob} heroContent={heroContent} newsletterContent={newsletterContent} whyJoblyContent={whyJoblyContent} />
+      <HomeClientContent jobs={jobs} categories={categories} featuredJob={featuredJob} heroContent={heroContent} newsletterContent={newsletterContent} whyNxtContent={whyNxtContent} />
     </Suspense>
   );
 }

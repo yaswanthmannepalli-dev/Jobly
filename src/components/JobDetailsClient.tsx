@@ -244,7 +244,7 @@ function ApplyButton({ job }: { job: Job }) {
         animate={{ x: "120%" }}
         transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.2, ease: "easeInOut" }}
       />
-      <span className="relative">Apply on {job.source} </span>
+      <span className="relative">Apply Job</span>
       <ExternalLink size={15} className="relative transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </motion.a>
   );

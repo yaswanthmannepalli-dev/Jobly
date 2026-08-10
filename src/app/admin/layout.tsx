@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Briefcase, LayoutDashboard, LogOut, Users, Settings, Layers, BarChart3 } from "lucide-react"
+import { Briefcase, LayoutDashboard, LogOut, Users, Settings, Layers, BarChart3, Shield } from "lucide-react"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -47,6 +47,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <Settings size={18} className="text-muted" />
             Content (CMS)
+          </Link>
+          <Link 
+            href="/admin/legal" 
+            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted hover:bg-surface hover:text-foreground transition"
+          >
+            <Shield size={18} className="text-muted" />
+            Legal
           </Link>
         </nav>
 

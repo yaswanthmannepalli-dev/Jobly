@@ -17,7 +17,7 @@ export default async function CMSPage() {
     subtitle: "One email, once a day. Only the roles worth your time — zero spam, unsubscribe anytime."
   });
 
-  const whyJoblyContent = await getSiteContent("whyJobly", {
+  const whyNxtContent = await getSiteContent("whyNxt", {
     title: "Why NXT?",
     points: [
       { title: "Refreshed every 24 hours", text: "Our team reviews and adds new roles daily so you’re never looking at stale listings." },
@@ -48,7 +48,7 @@ export default async function CMSPage() {
       <CMSClient 
         initialHero={heroContent} 
         initialNewsletter={newsletterContent} 
-        initialWhyJobly={whyJoblyContent} 
+        initialWhyNxt={whyNxtContent} 
         initialFooter={footerContent} 
         initialSeo={seoContent}
       />

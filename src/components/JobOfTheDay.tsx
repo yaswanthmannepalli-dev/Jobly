@@ -6,7 +6,9 @@ import { motion } from "framer-motion";
 import { Job } from "@/lib/types";
 import MagneticArrow from "@/components/MagneticArrow";
 
-export default function JobOfTheDay({ job }: { job: Job }) {
+export default function JobOfTheDay({ job }: { job: Job | undefined }) {
+  if (!job) return null;
+
   return (
     <section className="mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-12">
       <motion.div

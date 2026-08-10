@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Code2,
@@ -9,7 +11,7 @@ import {
   Handshake,
   LifeBuoy,
 } from "lucide-react";
-import { Job, JobCategory } from "@/lib/types";
+import { Job } from "@/lib/types";
 
 const icons: Record<string, any> = {
   code: Code2,
@@ -23,14 +25,19 @@ const icons: Record<string, any> = {
 export default function CategorySection({
   jobs,
   categories,
-  active,
-  onSelect,
 }: {
   jobs: Job[];
   categories: any[];
-  active: JobCategory | null;
-  onSelect: (c: JobCategory | null) => void;
 }) {
+  const router = useRouter();
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const handleCategoryClick = (catName: string) => {
+    if (isNavigating) return;
+    setIsNavigating(true);
+    router.push(`/categories/${catName.toLowerCase()}`);
+  };
+
   return (
     <section id="categories" className="mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-12">
       <motion.div
@@ -50,9 +57,8 @@ export default function CategorySection({
 
       <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-6">
         {categories.map((cat, i) => {
-          const Icon = icons[cat.icon];
+          const Icon = icons[cat.icon] || Code2;
           const count = jobs.filter((j) => j.category === cat.name).length;
-          const isActive = active === cat.name;
           return (
             <motion.button
               key={cat.name}
@@ -61,18 +67,13 @@ export default function CategorySection({
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] as const }}
               whileHover={{ y: -4 }}
-              onClick={() => onSelect(isActive ? null : (cat.name as JobCategory))}
-              className={`group flex min-w-[136px] shrink-0 flex-col items-start gap-3 rounded-2xl border px-5 py-5 text-left transition-colors sm:min-w-0 ${
-                isActive
-                  ? "border-purple/50 bg-purple-tint"
-                  : "border-line bg-white hover:border-purple/30 hover:bg-surface"
-              }`}
+              onClick={() => handleCategoryClick(cat.name)}
+              disabled={isNavigating}
+              className="group flex min-w-[136px] shrink-0 flex-col items-start gap-3 rounded-2xl border px-5 py-5 text-left transition-colors sm:min-w-0 border-line bg-white hover:border-purple/30 hover:bg-surface cursor-pointer"
             >
               <motion.span
                 whileHover={{ rotate: -8, scale: 1.08 }}
-                className={`flex h-10 w-10 items-center justify-center rounded-xl ${
-                  isActive ? "bg-white" : "bg-surface"
-                }`}
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface transition-colors group-hover:bg-white"
               >
                 <Icon size={19} className="text-purple" strokeWidth={1.7} />
               </motion.span>

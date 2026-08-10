@@ -11,7 +11,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
-import WhyJobly from "@/components/WhyJobly";
+import WhyNxt from "@/components/WhyNxt";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -47,7 +47,7 @@ const values = [
     icon: Users,
     title: "People-first design",
     description:
-      "No dark patterns, no forced sign-ups, no data harvesting. We built Jobly as the job board we wished existed.",
+      "No dark patterns, no forced sign-ups, no data harvesting. We built NXT. as the job board we wished existed.",
   },
   {
     icon: Heart,
@@ -86,19 +86,19 @@ const timeline = [
     year: "2024",
     title: "The prototype",
     description:
-      "A weekend hackathon turned into an obsession. The first version of Jobly launched with just 30 hand-picked roles — and people loved the simplicity.",
+      "A weekend hackathon turned into an obsession. The first version of NXT. launched with just 30 hand-picked roles — and people loved the simplicity.",
   },
   {
     year: "2025",
     title: "The growth",
     description:
-      "Word spread. Within months, thousands of professionals were using Jobly daily. Companies started reaching out to be listed. We kept saying no to anything that felt like noise.",
+      "Word spread. Within months, thousands of professionals were using NXT. daily. Companies started reaching out to be listed. We kept saying no to anything that felt like noise.",
   },
   {
     year: "Today",
     title: "The mission continues",
     description:
-      "Jobly now serves 10,000+ monthly visitors with 500+ curated roles across 6 categories. And we\u2019re just getting started.",
+      "NXT. now serves 10,000+ monthly visitors with 500+ curated roles across 6 categories. And we\u2019re just getting started.",
   },
 ];
 
@@ -281,8 +281,8 @@ export default function AboutPageClient() {
         </div>
       </section>
 
-      {/* Why Jobly */}
-      <WhyJobly />
+      {/* Why NXT. */}
+      <WhyNxt />
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-5 py-6 sm:px-8 sm:py-8">

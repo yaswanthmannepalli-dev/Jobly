@@ -2,15 +2,11 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  const categories = await prisma.category.findMany();
-  console.log("CATEGORIES:");
-  console.log(JSON.stringify(categories, null, 2));
-
   const whyNxtContent = await prisma.siteContent.findUnique({
-    where: { key: 'whyNxt' }
+    where: { section: 'whyNxt' }
   });
   console.log("\nWHYNXT CONTENT:");
-  console.log(whyNxtContent ? whyNxtContent.content : "Not found in DB");
+  console.log(whyNxtContent ? whyNxtContent.data : "Not found in DB");
 }
 
 main()

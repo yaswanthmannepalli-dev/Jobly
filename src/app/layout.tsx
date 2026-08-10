@@ -3,6 +3,7 @@ import { Sora, Inter, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import PageTracker from "@/components/PageTracker";
+import PageTransition from "@/components/PageTransition";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -43,7 +44,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <PageTracker />
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

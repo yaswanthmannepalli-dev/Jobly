@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { Job } from "@/lib/types";
 import JobList from "@/components/JobList";
-import { ChevronRight } from "lucide-react";
+import CategoriesClient from "./CategoriesClient";
 import { prisma } from "@/lib/prisma";
 import { getCategories } from "@/app/actions/categories";
 
 export const metadata = {
-  title: "Categories – Jobly",
+  title: "Categories – NXT.",
   description: "Browse job categories",
 };
 
@@ -26,8 +26,6 @@ export default async function CategoriesIndex() {
     requirements: JSON.parse(job.requirements),
     skills: JSON.parse(job.skills),
   } as unknown as Job));
-
-  const latestJobs = parsedJobs.slice(0, 5);
   const categories = await getCategories();
 
   return (
@@ -36,29 +34,12 @@ export default async function CategoriesIndex() {
         <h1 className="flex items-center gap-2 text-3xl font-bold">
           Categories
         </h1>
-        <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 mt-6">
-          {categories.map((cat) => {
-            const count = parsedJobs.filter((j: Job) => j.category === cat.name).length;
-            return (
-              <Link
-                key={cat.id}
-                href={`/categories/${cat.name.toLowerCase()}`}
-                className="group flex items-center justify-between rounded-2xl border border-line bg-white p-5 transition-colors hover:border-purple hover:shadow-sm"
-              >
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{cat.name}</p>
-                  <p className="text-xs text-muted group-hover:text-purple-dark">{count} open roles</p>
-                </div>
-                <ChevronRight size={18} className="text-muted transition-transform group-hover:translate-x-1 group-hover:text-purple" />
-              </Link>
-            );
-          })}
-        </div>
+        <CategoriesClient categories={categories} parsedJobs={parsedJobs} />
       </section>
-      {/* Latest Jobs */}
+      {/* All Jobs */}
       <section className="w-full max-w-6xl px-5 sm:px-8">
-        <h2 className="mt-12 text-2xl font-bold">Latest Jobs</h2>
-        <JobList jobs={latestJobs} hidePagination={true} />
+        <h2 className="mt-12 text-2xl font-bold">All Jobs</h2>
+        <JobList jobs={parsedJobs} />
       </section>
     </main>
   );

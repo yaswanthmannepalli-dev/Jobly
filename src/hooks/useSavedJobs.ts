@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const STORAGE_KEY = "jobly:saved-jobs";
+const STORAGE_KEY = "nxt:";
 
 function readStorage(): string[] {
   if (typeof window === "undefined") return [];

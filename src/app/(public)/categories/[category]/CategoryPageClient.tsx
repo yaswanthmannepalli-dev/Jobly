@@ -9,7 +9,6 @@ import { Briefcase } from "lucide-react";
 import { Job } from "@/lib/types";
 import Pagination from "@/components/Pagination";
 
-const VALID_CATEGORIES = ["development", "design", "marketing", "data", "sales", "support"];
 const JOBS_PER_PAGE = 8;
 
 export default function CategoryPageClient({ category, initialJobs, categories }: { category: string, initialJobs: Job[], categories: any[] }) {
@@ -101,7 +100,19 @@ export default function CategoryPageClient({ category, initialJobs, categories }
         <FilterBar filters={filters} onChange={handleFilterChange} categories={categories} locations={locations} />
 
         {/* Job List or Empty State */}
-        {filtered.length > 0 ? (
+        {categoryJobs.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col items-center gap-3 py-20 text-center"
+          >
+            <Briefcase size={36} className="text-purple/30" />
+            <p className="text-lg font-semibold text-foreground">No jobs available yet</p>
+            <p className="max-w-md text-sm text-muted">
+              We couldn&apos;t find any open roles in {displayName} right now. Check back soon — new opportunities are added regularly.
+            </p>
+          </motion.div>
+        ) : filtered.length > 0 ? (
           <>
             <JobList jobs={currentJobs} />
             {filtered.length > JOBS_PER_PAGE && (

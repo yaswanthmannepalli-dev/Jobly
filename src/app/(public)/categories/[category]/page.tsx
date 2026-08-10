@@ -6,7 +6,7 @@ import { Job } from "@/lib/types";
 export const generateMetadata = async ({ params }: { params: Promise<{ category: string }> }) => {
   const { category: rawCategory } = await params;
   const category = decodeURIComponent(rawCategory);
-  const title = `${capitalize(category)} – Jobly`;
+  const title = `${capitalize(category)} – NXT.`;
   return {
     title,
     description: `Browse ${category} job openings`,
