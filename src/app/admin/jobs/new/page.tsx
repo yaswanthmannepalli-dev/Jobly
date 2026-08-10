@@ -11,6 +11,7 @@ export default function NewJobPage() {
     const type = formData.get("type") as string
     const category = formData.get("category") as string
     const description = formData.get("description") as string
+    const applicationUrl = formData.get("applicationUrl") as string
     const salaryMinStr = formData.get("salaryMin") as string
     const salaryMaxStr = formData.get("salaryMax") as string
     const salaryMin = salaryMinStr ? parseInt(salaryMinStr) : null
