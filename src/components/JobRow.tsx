@@ -44,8 +44,8 @@ export default function JobRow({ job }: { job: Job }) {
         </motion.div>
 
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <h3 className="truncate text-[15px] font-semibold text-foreground sm:text-base">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 max-w-full">
+            <h3 className="truncate max-w-full text-[15px] font-semibold text-foreground sm:text-base">
               {job.title}
             </h3>
             {job.verified && (

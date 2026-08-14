@@ -47,7 +47,7 @@ export default function FilterBar({ filters, categories, locations, batches, onC
     onChange({ ...filters, [field]: e.target.value });
   };
 
-  const selectClass = "flex-1 h-[50px] min-w-[140px] appearance-none rounded-2xl border border-line bg-surface px-4 py-2 text-sm font-medium text-foreground shadow-[0_1px_0_rgba(20,18,31,0.02)] transition-all hover:border-purple/50 focus:border-purple focus:outline-none focus:ring-4 focus:ring-purple/10 bg-no-repeat cursor-pointer";
+  const selectClass = "w-full sm:w-auto sm:flex-1 h-[50px] min-w-[140px] appearance-none rounded-2xl border border-line bg-surface px-4 py-2 text-sm font-medium text-foreground shadow-[0_1px_0_rgba(20,18,31,0.02)] transition-all hover:border-purple/50 focus:border-purple focus:outline-none focus:ring-4 focus:ring-purple/10 bg-no-repeat cursor-pointer";
   
   const selectStyle = {
     backgroundImage: `url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207.5L10%2012.5L15%207.5%22%20stroke%3D%22%23666%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')`,
@@ -62,7 +62,7 @@ export default function FilterBar({ filters, categories, locations, batches, onC
       animate="show" 
       className="flex flex-wrap items-center gap-3 py-6 w-full"
     >
-      <motion.div variants={item} className="flex-1 min-w-[220px]">
+      <motion.div variants={item} className="w-full sm:flex-1 min-w-[220px]">
         <SearchBar value={filters.search} onChange={handleSearchChange} />
       </motion.div>
       <motion.select
@@ -169,7 +169,7 @@ export default function FilterBar({ filters, categories, locations, batches, onC
         ))}
       </motion.select>
       
-      <motion.div variants={item} className="flex items-center gap-4 px-2">
+      <motion.div variants={item} className="flex w-full sm:w-auto items-center gap-4 px-2">
         <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-foreground">
           <input 
             type="checkbox" 

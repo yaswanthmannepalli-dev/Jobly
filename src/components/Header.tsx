@@ -153,6 +153,17 @@ export default function SiteHeader() {
               className="overflow-hidden border-t border-line md:hidden"
             >
               <nav className="flex flex-col gap-1 px-5 py-4">
+                <form onSubmit={(e) => { handleSearchSubmit(e); setOpen(false); }} className="relative mb-2 block md:hidden">
+                  <div className="flex items-center rounded-xl border border-line bg-surface px-3 py-2.5 shadow-sm focus-within:border-purple/50 focus-within:ring-1 focus-within:ring-purple">
+                    <Search size={15} className="shrink-0 text-muted" />
+                    <input
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search jobs..."
+                      className="ml-2 w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted"
+                    />
+                  </div>
+                </form>
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
