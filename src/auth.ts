@@ -9,7 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (credentials.username === "admin" && credentials.password === "password123") {
+        if (credentials.username === "admin" && credentials.password === "Nxt@_02") {
           return { id: "1", name: "Admin" }
         }
         return null
