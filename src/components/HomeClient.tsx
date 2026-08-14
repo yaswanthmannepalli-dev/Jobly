@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, Suspense } from "react";
+import { useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Hero from "@/components/Hero";
 import JobList from "@/components/JobList";
@@ -10,10 +10,19 @@ import WhyNxt from "@/components/WhyNxt";
 import WhatsAppSection from "@/components/WhatsAppSection";
 import Newsletter from "@/components/Newsletter";
 import LogoMarquee from "@/components/LogoMarquee";
-import { Job, JobCategory } from "@/lib/types";
+import { Job } from "@/lib/types";
 import { motion } from "framer-motion";
 
-function HomeClientContent({ jobs, categories, featuredJob, heroContent, newsletterContent, whyNxtContent }: { jobs: Job[], categories: any[], featuredJob?: Job, heroContent?: any, newsletterContent?: any, whyNxtContent?: any }) {
+interface HomeProps {
+  jobs: Job[];
+  categories: { id: string; name: string; icon: string }[];
+  featuredJob?: Job;
+  heroContent?: { title: string; subtitle?: string; stats1?: string; stats1Label?: string; stats2?: string; stats2Label?: string; imageUrl?: string; };
+  newsletterContent?: { title: string; subtitle: string };
+  whyNxtContent?: { title: string; points: { title: string; text: string }[] };
+}
+
+function HomeClientContent({ jobs, categories, featuredJob, heroContent, newsletterContent, whyNxtContent }: HomeProps) {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
 
@@ -67,7 +76,7 @@ function HomeClientContent({ jobs, categories, featuredJob, heroContent, newslet
   );
 }
 
-export default function HomeClient({ jobs, categories, featuredJob, heroContent, newsletterContent, whyNxtContent }: { jobs: Job[], categories: any[], featuredJob?: Job, heroContent?: any, newsletterContent?: any, whyNxtContent?: any }) {
+export default function HomeClient({ jobs, categories, featuredJob, heroContent, newsletterContent, whyNxtContent }: HomeProps) {
   return (
     <Suspense fallback={null}>
       <HomeClientContent jobs={jobs} categories={categories} featuredJob={featuredJob} heroContent={heroContent} newsletterContent={newsletterContent} whyNxtContent={whyNxtContent} />

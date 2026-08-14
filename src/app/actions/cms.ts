@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 
-export async function getSiteContent(section: string, defaultData: any) {
+export async function getSiteContent<T>(section: string, defaultData: T): Promise<T> {
   try {
     const content = await prisma.siteContent.findUnique({
       where: { section }
@@ -20,7 +20,7 @@ export async function getSiteContent(section: string, defaultData: any) {
   return defaultData;
 }
 
-export async function updateSiteContent(section: string, data: any) {
+export async function updateSiteContent<T>(section: string, data: T) {
   const session = await auth();
   if (!session?.user) throw new Error("Unauthorized");
   

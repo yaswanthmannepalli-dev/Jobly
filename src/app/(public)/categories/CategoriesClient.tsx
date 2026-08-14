@@ -8,7 +8,7 @@ import Pagination from "@/components/Pagination";
 
 const CATEGORIES_PER_PAGE = 12;
 
-export default function CategoriesClient({ categories, parsedJobs }: { categories: any[], parsedJobs: Job[] }) {
+export default function CategoriesClient({ categories, parsedJobs }: { categories: { id: string; name: string; icon: string }[], parsedJobs: Job[] }) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(categories.length / CATEGORIES_PER_PAGE);

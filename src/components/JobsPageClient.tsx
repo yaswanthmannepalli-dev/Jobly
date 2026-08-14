@@ -10,7 +10,7 @@ import Pagination from "./Pagination";
 
 interface JobsPageClientProps {
   initialJobs: Job[];
-  categories: any[];
+  categories: { id: string; name: string; icon: string }[];
   initialSearch?: string;
 }
 

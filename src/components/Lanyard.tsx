@@ -66,6 +66,7 @@ export default function Lanyard({
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobile(window.innerWidth < 768);
     const handleResize = (): void => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
@@ -182,7 +183,7 @@ function Band({
     return body.lerped;
   };
 
-  const { nodes, materials } = useGLTF(cardGLB) as any;
+  const { nodes, materials } = useGLTF(cardGLB) as unknown as { nodes: Record<string, THREE.Mesh>; materials: Record<string, THREE.Material & { map?: THREE.Texture }> };
   const texture = useTexture(lanyardImage || lanyardTexture);
   // useTexture must be called unconditionally; use a blank pixel when an image
   // isn't supplied for a given face, then skip compositing it below.
@@ -195,7 +196,7 @@ function Band({
     const baseMap = materials.base.map as THREE.Texture;
     if (!frontImage && !backImage) return baseMap;
 
-    const baseImg = baseMap.image as any;
+    const baseImg = baseMap.image as HTMLImageElement;
     const W = baseImg.width;
     const H = baseImg.height;
     const canvas = document.createElement('canvas');
@@ -206,7 +207,7 @@ function Band({
     // Keep the original baked atlas for the card edges and any untouched face.
     ctx.drawImage(baseImg, 0, 0, W, H);
 
-    const drawFitted = (img: any, rect: typeof FRONT_UV_RECT) => {
+    const drawFitted = (img: HTMLImageElement, rect: typeof FRONT_UV_RECT) => {
       const rx = rect.x * W;
       const ry = rect.y * H;
       const rw = rect.w * W;
@@ -225,8 +226,8 @@ function Band({
       ctx.restore();
     };
 
-    if (frontImage && frontTex.image) drawFitted(frontTex.image, FRONT_UV_RECT);
-    if (backImage && backTex.image) drawFitted(backTex.image, BACK_UV_RECT);
+    if (frontImage && frontTex.image) drawFitted(frontTex.image as HTMLImageElement, FRONT_UV_RECT);
+    if (backImage && backTex.image) drawFitted(backTex.image as HTMLImageElement, BACK_UV_RECT);
 
     const composite = new THREE.CanvasTexture(canvas);
     composite.colorSpace = THREE.SRGBColorSpace;

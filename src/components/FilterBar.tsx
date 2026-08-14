@@ -19,7 +19,7 @@ export interface Filters {
 
 interface FilterBarProps {
   filters: Filters;
-  categories: any[];
+  categories: { id: string; name: string }[];
   locations?: string[];
   batches?: string[];
   onChange: (filters: Filters) => void;

@@ -79,7 +79,7 @@ export default async function NewJobPage() {
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Company Name</label>
             <input name="company" required className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple" />
-            <p className="mt-1 text-xs text-muted">"About [Company]" section is automatically generated.</p>
+            <p className="mt-1 text-xs text-muted">&quot;About [Company]&quot; section is automatically generated.</p>
           </div>
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Location</label>
@@ -158,7 +158,7 @@ export default async function NewJobPage() {
         <div className="flex items-center gap-3 rounded-xl border border-line bg-surface/50 p-4">
           <input type="checkbox" id="featured" name="featured" className="h-5 w-5 rounded border-line text-purple focus:ring-purple" />
           <label htmlFor="featured" className="text-sm font-medium text-foreground cursor-pointer">
-            Set as Editor's Pick (Featured Job)
+            Set as Editor&apos;s Pick (Featured Job)
           </label>
         </div>
 

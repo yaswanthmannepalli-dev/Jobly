@@ -4,10 +4,27 @@ import Link from "next/link";
 import { Pencil, Trash2, Plus, Search } from "lucide-react";
 import Pagination from "@/components/Pagination";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { deleteJob } from "@/app/actions/jobs"; // We will create this or use existing
 
-export default function AdminJobsClient({ jobs, totalPages, currentPage, initialQuery, initialStatus }: any) {
+interface Job {
+  id: string;
+  title: string;
+  company: string;
+  status: string;
+  postedAt: string;
+  featured: boolean;
+}
+
+interface AdminJobsClientProps {
+  jobs: Job[];
+  totalPages: number;
+  currentPage: number;
+  initialQuery: string;
+  initialStatus: string;
+}
+
+export default function AdminJobsClient({ jobs, totalPages, currentPage, initialQuery, initialStatus }: AdminJobsClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -44,9 +61,12 @@ export default function AdminJobsClient({ jobs, totalPages, currentPage, initial
   };
 
   return (
-    <div>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Manage Jobs</h1>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Jobs</h1>
+          <p className="text-muted-foreground">Manage job postings and their status.</p>
+        </div>
         <Link 
           href="/admin/jobs/new"
           className="flex items-center gap-2 rounded-xl bg-purple px-4 py-2.5 text-sm font-medium text-white hover:bg-purple-dark transition shrink-0"
@@ -106,14 +126,14 @@ export default function AdminJobsClient({ jobs, totalPages, currentPage, initial
                 </td>
               </tr>
             ) : (
-              jobs.map((job: any) => (
+              jobs.map((job: Job) => (
                 <tr key={job.id} className="hover:bg-surface/50 transition">
                   <td className="px-6 py-4 font-medium text-foreground">
                     <div className="flex items-center gap-2">
                       {job.title}
                       {job.featured && (
                         <span className="inline-flex rounded-full bg-purple-tint px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-dark">
-                          Editor's Pick
+                          Editor&apos;s Pick
                         </span>
                       )}
                     </div>

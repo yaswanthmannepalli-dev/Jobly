@@ -11,7 +11,7 @@ import Pagination from "@/components/Pagination";
 
 const JOBS_PER_PAGE = 8;
 
-export default function CategoryPageClient({ category, initialJobs, categories }: { category: string, initialJobs: Job[], categories: any[] }) {
+export default function CategoryPageClient({ category, initialJobs, categories }: { category: string, initialJobs: Job[], categories: { id: string; name: string }[] }) {
   const normalizedSlug = category.toLowerCase();
   const displayName = capitalize(normalizedSlug);
 

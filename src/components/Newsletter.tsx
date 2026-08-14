@@ -6,7 +6,7 @@ import { Mail, Check } from "lucide-react";
 
 import { subscribeUser } from "@/app/actions/subscribe";
 
-export default function Newsletter({ content }: { content?: any }) {
+export default function Newsletter({ content }: { content?: { title: string; subtitle: string; } }) {
   const c = content || {
     title: "Never miss a great opportunity",
     subtitle: "One email, once a day. Only the roles worth your time — zero spam, unsubscribe anytime."

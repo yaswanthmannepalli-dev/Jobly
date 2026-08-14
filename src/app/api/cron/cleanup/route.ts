@@ -42,7 +42,7 @@ export async function GET(req: Request) {
       message: `Successfully deleted ${result.count} expired jobs.`,
       deletedCount: result.count,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Failed to run cron job cleanup:", error);
     return NextResponse.json(
       { success: false, error: "Internal Server Error" },

@@ -20,10 +20,11 @@ const itemVariants = {
 };
 
 export default function JobRow({ job }: { job: Job }) {
-  const [postedLabel, setPostedLabel] = useState("");
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    setPostedLabel(timeAgo(job.postedAt));
-  }, [job.postedAt]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
   return (
     <motion.div variants={itemVariants} layout>
       <Link
@@ -61,7 +62,7 @@ export default function JobRow({ job }: { job: Job }) {
             <span className="rounded-full bg-surface px-2 py-0.5 ring-1 ring-line">
               {job.type}
             </span>
-            <span suppressHydrationWarning>{postedLabel}</span>
+            <span suppressHydrationWarning>{mounted ? timeAgo(job.postedAt) : ""}</span>
           </div>
         </div>
 

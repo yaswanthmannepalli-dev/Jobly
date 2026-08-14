@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { CalendarClock, Zap, Gem, ShieldOff } from "lucide-react";
 
 
-export default function WhyNxt({ content }: { content?: any }) {
+export default function WhyNxt({ content }: { content?: { title: string; points: { title: string; text: string; }[]; } }) {
   const c = content || {
     title: "Why NXT.?",
     points: [
@@ -39,7 +39,7 @@ export default function WhyNxt({ content }: { content?: any }) {
         </motion.h2>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {c.points.map((p: any, i: number) => {
+          {c.points.map((p: { title: string; text: string; }, i: number) => {
             const Icon = icons[i] || CalendarClock;
             return (
               <motion.div

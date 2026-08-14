@@ -13,7 +13,7 @@ const ICONS = [
   { name: "life-buoy", icon: LifeBuoy }
 ];
 
-export default function CategoriesClient({ categories }: { categories: any[] }) {
+export default function CategoriesClient({ categories }: { categories: { id: string; name: string; icon: string }[] }) {
   const [isAdding, setIsAdding] = useState(false);
   const [newCat, setNewCat] = useState({ name: "", icon: "code" });
   const [error, setError] = useState("");

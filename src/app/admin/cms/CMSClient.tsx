@@ -4,12 +4,12 @@ import { useState } from "react";
 import { updateSiteContent } from "@/app/actions/cms";
 import { Loader2, Save } from "lucide-react";
 
-export default function CMSClient({ initialHero, initialNewsletter, initialWhyNxt, initialFooter, initialSeo }: any) {
-  const [hero, setHero] = useState(initialHero);
-  const [newsletter, setNewsletter] = useState(initialNewsletter);
-  const [whyNxt, setWhyNxt] = useState(initialWhyNxt);
-  const [footer, setFooter] = useState(initialFooter);
-  const [seo, setSeo] = useState(initialSeo);
+export default function CMSClient({ initialHero, initialNewsletter, initialWhyNxt, initialFooter, initialSeo }: { initialHero: unknown, initialNewsletter: unknown, initialWhyNxt: unknown, initialFooter: unknown, initialSeo: unknown }) {
+  const [hero, setHero] = useState(initialHero as Record<string, string>);
+  const [newsletter, setNewsletter] = useState(initialNewsletter as Record<string, string>);
+  const [whyNxt, setWhyNxt] = useState(initialWhyNxt as { title: string; points: { title: string; text: string }[] });
+  const [footer, setFooter] = useState(initialFooter as Record<string, string>);
+  const [seo, setSeo] = useState(initialSeo as Record<string, string>);
   
   const [savingHero, setSavingHero] = useState(false);
   const [savingNewsletter, setSavingNewsletter] = useState(false);
@@ -136,7 +136,7 @@ export default function CMSClient({ initialHero, initialNewsletter, initialWhyNx
           </div>
           <div className="space-y-4">
             <h3 className="font-medium text-sm border-b border-line pb-2">Feature Points</h3>
-            {whyNxt.points.map((point: any, idx: number) => (
+            {whyNxt.points.map((point: { title: string; text: string }, idx: number) => (
               <div key={idx} className="p-4 border border-line rounded-lg bg-surface/20 flex flex-col gap-3">
                 <div>
                   <label className="block text-xs font-medium text-muted mb-1">Point {idx + 1} Title</label>

@@ -14,8 +14,8 @@ export async function subscribeUser(formData: FormData) {
       data: { email },
     });
     return { success: true, message: "Successfully subscribed!" };
-  } catch (error: any) {
-    if (error.code === 'P2002') {
+  } catch (error: unknown) {
+    if (error instanceof Error && (error as { code?: string }).code === 'P2002') {
       return { error: "This email is already subscribed." };
     }
     console.error("Subscription error:", error);

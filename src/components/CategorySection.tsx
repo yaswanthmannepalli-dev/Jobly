@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Job } from "@/lib/types";
 
-const icons: Record<string, any> = {
+const icons: Record<string, React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>> = {
   code: Code2,
   pen: PenTool,
   megaphone: Megaphone,
@@ -27,7 +27,7 @@ export default function CategorySection({
   categories,
 }: {
   jobs: Job[];
-  categories: any[];
+  categories: { id: string; name: string; icon: string }[];
 }) {
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
@@ -56,18 +56,18 @@ export default function CategorySection({
       </motion.div>
 
       <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-6">
-        {categories.map((cat, i) => {
-          const Icon = icons[cat.icon] || Code2;
-          const count = jobs.filter((j) => j.category === cat.name).length;
+        {categories.slice(0, 8).map((category, i) => {
+          const Icon = icons[category.icon] || Code2;
+          const count = jobs.filter((j) => j.category === category.name).length;
           return (
             <motion.button
-              key={cat.name}
+              key={category.name}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] as const }}
               whileHover={{ y: -4 }}
-              onClick={() => handleCategoryClick(cat.name)}
+              onClick={() => handleCategoryClick(category.name)}
               disabled={isNavigating}
               className="group flex min-w-[136px] shrink-0 flex-col items-start gap-3 rounded-2xl border px-5 py-5 text-left transition-colors sm:min-w-0 border-line bg-white hover:border-purple/30 hover:bg-surface cursor-pointer"
             >
@@ -78,7 +78,7 @@ export default function CategorySection({
                 <Icon size={19} className="text-purple" strokeWidth={1.7} />
               </motion.span>
               <div>
-                <p className="text-sm font-semibold text-foreground">{cat.name}</p>
+                <p className="text-sm font-semibold text-foreground">{category.name}</p>
                 <p className="text-xs text-muted group-hover:text-purple-dark">
                   {count} open roles
                 </p>

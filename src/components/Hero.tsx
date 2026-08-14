@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Play } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -22,7 +22,7 @@ const slideUp = {
   },
 };
 
-export default function Hero({ content }: { content?: any }) {
+export default function Hero({ content }: { content?: { title: string; subtitle?: string; stats1?: string; stats1Label?: string; stats2?: string; stats2Label?: string; imageUrl?: string } }) {
   // Fallback defaults in case content is missing
   const c = content || {
     title: "Land the career\nyou deserve",

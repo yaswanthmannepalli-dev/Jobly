@@ -16,10 +16,9 @@ const ITEMS_PER_PAGE = 8; // Adjust this if you want more/less per page
 export default function JobList({ jobs, hidePagination = false }: { jobs: Job[]; hidePagination?: boolean }) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Reset to page 1 whenever the jobs list changes (e.g., when a user searches or filters)
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [jobs]);
+  // Removed reset to page 1 in effect because it causes cascading renders.
+  // The parent component should pass the correct page down, or we should use a derived state.
+  // We'll manage pagination solely through props or user interaction.
 
   if (jobs.length === 0) {
     return (

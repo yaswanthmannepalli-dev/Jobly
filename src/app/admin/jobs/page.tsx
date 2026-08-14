@@ -9,7 +9,7 @@ export default async function AdminJobsPage(props: { searchParams: Promise<{ [ke
   const status = typeof searchParams.status === 'string' ? searchParams.status : "all";
   const limit = 10;
   
-  const where: any = {};
+  const where: Record<string, unknown> = {};
   if (q) {
     where.OR = [
       { title: { contains: q } },
@@ -32,7 +32,7 @@ export default async function AdminJobsPage(props: { searchParams: Promise<{ [ke
 
   return (
     <AdminJobsClient 
-      jobs={jobs} 
+      jobs={jobs.map(j => ({ ...j, postedAt: j.postedAt.toISOString(), deadline: j.deadline?.toISOString() })) as unknown as { id: string; title: string; company: string; status: string; postedAt: string; featured: boolean; }[]} 
       totalPages={totalPages} 
       currentPage={page} 
       initialQuery={q} 
