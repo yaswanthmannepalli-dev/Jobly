@@ -2,11 +2,15 @@ import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import { getCategories } from "@/app/actions/categories"
+import { auth } from "@/auth"
 
 export default async function NewJobPage() {
   const categories = await getCategories()
   async function createJob(formData: FormData) {
     "use server"
+    
+    const session = await auth();
+    if (!session?.user) throw new Error("Unauthorized");
     
     const title = formData.get("title") as string
     const company = formData.get("company") as string

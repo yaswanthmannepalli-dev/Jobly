@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/auth";
 
 export async function getSiteContent(section: string, defaultData: any) {
   try {
@@ -20,6 +21,9 @@ export async function getSiteContent(section: string, defaultData: any) {
 }
 
 export async function updateSiteContent(section: string, data: any) {
+  const session = await auth();
+  if (!session?.user) throw new Error("Unauthorized");
+  
   try {
     await prisma.siteContent.upsert({
       where: { section },

@@ -2,8 +2,12 @@
 
 import { prisma } from "@/lib/prisma";
 import { subDays, startOfDay, format } from "date-fns";
+import { auth } from "@/auth";
 
 export async function getDashboardMetrics() {
+  const session = await auth();
+  if (!session?.user) throw new Error("Unauthorized");
+  
   const totalJobs = await prisma.job.count();
   const activeJobs = await prisma.job.count({ where: { status: "active" } });
   

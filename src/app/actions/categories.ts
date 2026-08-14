@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/auth";
 
 export async function getCategories() {
   return await prisma.category.findMany({
@@ -10,6 +11,9 @@ export async function getCategories() {
 }
 
 export async function addCategory(name: string, icon: string) {
+  const session = await auth();
+  if (!session?.user) throw new Error("Unauthorized");
+  
   try {
     await prisma.category.create({
       data: { name, icon }
@@ -24,6 +28,9 @@ export async function addCategory(name: string, icon: string) {
 }
 
 export async function deleteCategory(id: string) {
+  const session = await auth();
+  if (!session?.user) throw new Error("Unauthorized");
+  
   try {
     await prisma.category.delete({
       where: { id }
