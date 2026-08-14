@@ -95,11 +95,11 @@ export default function CMSClient({ initialHero, initialNewsletter, initialWhyNx
         <form onSubmit={handleSaveHero} className="p-6 flex flex-col gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Headline</label>
-            <input 
-              type="text" 
+            <textarea 
               value={hero.title} 
               onChange={e => setHero({...hero, title: e.target.value})} 
               className="w-full px-4 py-2 border border-line rounded-lg bg-surface/50 focus:bg-white focus:outline-purple"
+              rows={2}
               required 
             />
           </div>

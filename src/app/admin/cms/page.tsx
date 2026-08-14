@@ -3,7 +3,7 @@ import CMSClient from "./CMSClient";
 
 export default async function CMSPage() {
   const heroContent = await getSiteContent("hero", {
-    title: "Find your dream job"
+    title: "Land the career\nyou deserve"
   });
 
   const newsletterContent = await getSiteContent("newsletter", {
