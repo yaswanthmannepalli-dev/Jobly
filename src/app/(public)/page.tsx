@@ -21,13 +21,7 @@ export default async function Home() {
   const categories = await getCategories();
 
   const heroContent = await getSiteContent("hero", {
-    title: "Land the career\nyou deserve",
-    subtitle: "Handpicked roles from India's top companies — no spam, no noise. Just opportunities that move your career forward.",
-    stats1: "10,000+",
-    stats1Label: "professionals",
-    stats2: "24",
-    stats2Label: "hours",
-    imageUrl: "/images/Hero%20image.png"
+    title: "Land the career\nyou deserve"
   });
 
   const newsletterContent = await getSiteContent("newsletter", {

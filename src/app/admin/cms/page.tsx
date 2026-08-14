@@ -3,13 +3,7 @@ import CMSClient from "./CMSClient";
 
 export default async function CMSPage() {
   const heroContent = await getSiteContent("hero", {
-    title: "Find your dream job",
-    subtitle: "Connecting the best talent with the best companies.",
-    stats1: "10,000+",
-    stats1Label: "Jobs Available",
-    stats2: "500+",
-    stats2Label: "Companies Hiring",
-    imageUrl: "/images/Hero%20image.png"
+    title: "Find your dream job"
   });
 
   const newsletterContent = await getSiteContent("newsletter", {
