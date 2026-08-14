@@ -11,12 +11,15 @@ import Pagination from "./Pagination";
 interface JobsPageClientProps {
   initialJobs: Job[];
   categories: any[];
+  initialSearch?: string;
 }
 
 const JOBS_PER_PAGE = 8;
 
-export default function JobsPageClient({ initialJobs, categories }: JobsPageClientProps) {
-  const defaultFilters: Partial<Filters> = {};
+export default function JobsPageClient({ initialJobs, categories, initialSearch }: JobsPageClientProps) {
+  const defaultFilters: Partial<Filters> = {
+    search: initialSearch || "",
+  };
   const { filters, setFilters, filteredJobs } = useJobFilters(initialJobs, defaultFilters);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,6 +34,7 @@ export default function JobsPageClient({ initialJobs, categories }: JobsPageClie
   const currentJobs = filteredJobs.slice(startIndex, startIndex + JOBS_PER_PAGE);
 
   const locations = Array.from(new Set(initialJobs.map(j => j.location))).filter(Boolean).sort();
+  const batches = Array.from(new Set(initialJobs.map(j => j.batch))).filter(Boolean).sort() as string[];
 
   return (
     <main className="flex flex-col items-center gap-8 py-12">
@@ -38,7 +42,7 @@ export default function JobsPageClient({ initialJobs, categories }: JobsPageClie
         <h1 className="flex items-center gap-2 text-3xl font-bold">
           <Briefcase size={28} /> Jobs
         </h1>
-        <FilterBar filters={filters} onChange={handleFilterChange} categories={categories} locations={locations} />
+        <FilterBar filters={filters} onChange={handleFilterChange} categories={categories} locations={locations} batches={batches} />
         <JobList jobs={currentJobs} hidePagination={true} />
         
         {filteredJobs.length > JOBS_PER_PAGE && (

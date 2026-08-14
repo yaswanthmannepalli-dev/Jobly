@@ -36,6 +36,9 @@ model Job {
   status           String   @default("active")
   postedAt         DateTime @default(now())
   deadline         DateTime?
+  batch            String?
+  isInternship     Boolean  @default(false)
+  isFresher        Boolean  @default(false)
 }
 
 model PageVisit {

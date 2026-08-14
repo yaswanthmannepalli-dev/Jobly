@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 
 const companies = [
   { name: "Google", domain: "google.com" },

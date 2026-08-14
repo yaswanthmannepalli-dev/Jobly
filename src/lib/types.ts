@@ -31,4 +31,7 @@ export interface Job {
   featured?: boolean;
   verified: boolean;
   status: JobStatus;
+  batch?: string;
+  isInternship: boolean;
+  isFresher: boolean;
 }

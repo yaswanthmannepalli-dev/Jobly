@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 import { getCategories } from "@/app/actions/categories";
 
-export default async function JobsPage() {
+export default async function JobsPage({ searchParams }: { searchParams: { search?: string } }) {
   const dbJobs = await prisma.job.findMany({
     where: { status: "active" },
     orderBy: { postedAt: "desc" },
@@ -29,5 +29,5 @@ export default async function JobsPage() {
 
   const categories = await getCategories();
 
-  return <JobsPageClient initialJobs={parsedJobs} categories={categories} />;
+  return <JobsPageClient initialJobs={parsedJobs} categories={categories} initialSearch={searchParams.search || ""} />;
 }

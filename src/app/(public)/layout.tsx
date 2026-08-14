@@ -1,6 +1,5 @@
 import SiteHeader from "@/components/Header";
 import SiteFooter from "@/components/Footer";
-import GlobalCursor from "@/components/GlobalCursor";
 
 export default function PublicLayout({
   children,
@@ -9,8 +8,6 @@ export default function PublicLayout({
 }>) {
   return (
     <>
-      {/* Global Ribbons Cursor */}
-      <GlobalCursor />
 
       <div className="flex min-h-screen flex-col w-full">
         {/* Navigation */}

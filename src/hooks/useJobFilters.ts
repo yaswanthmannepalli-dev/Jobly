@@ -11,6 +11,9 @@ export interface Filters {
   experience: string;
   salaryMin?: number;
   workMode: string;
+  batch: string;
+  isInternship: boolean;
+  isFresher: boolean;
 }
 
 export function useJobFilters(initialJobs: Job[], initialFilters?: Partial<Filters>) {
@@ -21,6 +24,9 @@ export function useJobFilters(initialJobs: Job[], initialFilters?: Partial<Filte
     type: "",
     experience: "",
     workMode: "",
+    batch: "",
+    isInternship: false,
+    isFresher: false,
     salaryMin: undefined,
     ...(initialFilters || {}),
   });
@@ -48,6 +54,13 @@ export function useJobFilters(initialJobs: Job[], initialFilters?: Partial<Filte
       if (filters.workMode && job.workMode !== filters.workMode) return false;
       // Salary Min
       if (filters.salaryMin && (!job.salaryMin || job.salaryMin < filters.salaryMin)) return false;
+      // Batch
+      if (filters.batch && job.batch !== filters.batch) return false;
+      // Internship
+      if (filters.isInternship && !job.isInternship) return false;
+      // Fresher
+      if (filters.isFresher && !job.isFresher) return false;
+      
       return true;
     });
   }, [initialJobs, filters]);

@@ -21,8 +21,15 @@ export default function SiteHeader() {
   const { count, hydrated } = useSavedJobs();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -48,8 +55,9 @@ export default function SiteHeader() {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/?q=${encodeURIComponent(searchQuery.trim())}`);
+      router.push(`/jobs?search=${encodeURIComponent(searchQuery.trim())}`);
       setSearchOpen(false);
+      setSearchQuery("");
     }
   };
 
@@ -61,20 +69,18 @@ export default function SiteHeader() {
           <Lanyard 
             position={[0, 0, 15]} 
             gravity={[0, -40, 0]} 
-            frontImage="/assets/lanyard/nxt-logo.svg"
-            backImage="/assets/lanyard/nxt-logo.svg"
+            frontImage="/images/Lanyard Card png.png"
+            backImage="/images/Lanyard Card png.png"
             lanyardImage="/assets/lanyard/nxt-band.svg"
           />
         </div>
       </div>
 
-      <header className="sticky top-0 z-[70] border-b border-line/70 bg-background/80 backdrop-blur-md">
+      <header className={`sticky top-0 z-[70] transition-colors ${scrolled ? "border-b border-line/70 bg-background/80 backdrop-blur-md" : "border-b border-transparent bg-background"}`}>
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-5 sm:px-8">
           {/* Logo */}
           <Link href="/" className="flex shrink-0 items-center gap-2">
-            <span className="text-xl font-bold tracking-tight">
-              NXT<span className="text-purple">.</span>
-            </span>
+            <img src="/images/logo.png" alt="Logo" className="h-8 w-auto" />
           </Link>
 
           {/* Search bar — center */}

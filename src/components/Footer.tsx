@@ -35,9 +35,7 @@ export default async function SiteFooter() {
         <div className="flex flex-col gap-12 md:flex-row md:justify-between">
           
           <div className="max-w-xs">
-            <span className="text-2xl font-bold tracking-tight">
-              NXT<span className="text-purple">.</span>
-            </span>
+            <img src="/images/logo.png" alt="Logo" className="h-10 w-auto" />
             <p className="mt-4 text-sm text-muted leading-relaxed whitespace-pre-line">
               {c.tagline}
             </p>
@@ -86,9 +84,7 @@ export default async function SiteFooter() {
 
       {/* Massive Background Logo layered underneath */}
       <div className="pointer-events-none absolute inset-0 z-0 flex select-none items-end justify-center p-6 sm:p-8 opacity-[0.04]">
-        <span className="text-[16vw] font-black leading-none tracking-tighter">
-          NXT.
-        </span>
+        <img src="/images/logo.png" alt="Background Logo" className="w-[60vw] max-w-4xl object-contain opacity-50 grayscale" />
       </div>
     </footer>
   );

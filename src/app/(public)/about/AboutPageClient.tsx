@@ -46,8 +46,11 @@ const values = [
   {
     icon: Users,
     title: "People-first design",
-    description:
-      "No dark patterns, no forced sign-ups, no data harvesting. We built NXT. as the job board we wished existed.",
+    description: (
+      <>
+        No dark patterns, no forced sign-ups, no data harvesting. We built <img src="/images/logo.png" alt="NXT." className="inline h-[14px] w-auto -mt-0.5 mx-0.5" /> as the job board we wished existed.
+      </>
+    ),
   },
   {
     icon: Heart,
@@ -85,20 +88,29 @@ const timeline = [
   {
     year: "2024",
     title: "The prototype",
-    description:
-      "A weekend hackathon turned into an obsession. The first version of NXT. launched with just 30 hand-picked roles — and people loved the simplicity.",
+    description: (
+      <>
+        A weekend hackathon turned into an obsession. The first version of <img src="/images/logo.png" alt="NXT." className="inline h-[14px] w-auto -mt-0.5 mx-0.5" /> launched with just 30 hand-picked roles — and people loved the simplicity.
+      </>
+    ),
   },
   {
     year: "2025",
     title: "The growth",
-    description:
-      "Word spread. Within months, thousands of professionals were using NXT. daily. Companies started reaching out to be listed. We kept saying no to anything that felt like noise.",
+    description: (
+      <>
+        Word spread. Within months, thousands of professionals were using <img src="/images/logo.png" alt="NXT." className="inline h-[14px] w-auto -mt-0.5 mx-0.5" /> daily. Companies started reaching out to be listed. We kept saying no to anything that felt like noise.
+      </>
+    ),
   },
   {
     year: "Today",
     title: "The mission continues",
-    description:
-      "NXT. now serves 10,000+ monthly visitors with 500+ curated roles across 6 categories. And we\u2019re just getting started.",
+    description: (
+      <>
+        <img src="/images/logo.png" alt="NXT." className="inline h-[14px] w-auto -mt-0.5 mr-0.5" /> now serves 10,000+ monthly visitors with 500+ curated roles across 6 categories. And we’re just getting started.
+      </>
+    ),
   },
 ];
 
@@ -106,67 +118,39 @@ export default function AboutPageClient() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background">
-        <div className="mx-auto max-w-7xl px-5 pt-8 pb-16 sm:px-8 md:pt-10 lg:pt-12 lg:pb-20 flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-12">
+      <section className="relative w-full px-4 sm:px-6 md:px-8 pt-4 pb-8 md:pb-12 bg-background">
+        <div className="relative mx-auto max-w-[1400px] w-full min-h-[500px] md:min-h-[600px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden flex flex-col justify-end p-6 sm:p-10 md:p-16">
           
-          {/* Image Side (Left on Desktop) */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full lg:w-1/2 flex justify-center lg:justify-start"
-          >
-            <div className="relative w-full aspect-square max-w-md lg:max-w-lg overflow-hidden rounded-3xl border border-line shadow-2xl">
-              <img
-                src="/images/about-hero.png"
-                alt="About NXT"
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </motion.div>
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/images/Aboutus page png.png"
+              alt="About Background"
+              className="h-full w-full object-cover"
+            />
+            {/* Subtle Purple Blur Overlay */}
+            <div className="absolute inset-0 bg-purple/20 backdrop-blur-[2px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+          </div>
 
-          {/* Content Side (Right on Desktop) */}
-          <motion.div variants={stagger} initial="hidden" animate="show" className="w-full lg:w-1/2 flex flex-col items-start text-left">
-            <motion.div
-              variants={fadeUp}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 backdrop-blur-sm px-4 py-2 text-xs font-medium text-purple"
-            >
-              <Sparkles size={13} />
-              Our Story
-            </motion.div>
-
+          {/* Content Side */}
+          <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center text-center">
             <motion.h1
               variants={fadeUp}
-              className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl text-foreground"
+              className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl text-white"
             >
               We believe job hunting
-              <span className="block text-purple">shouldn&rsquo;t feel like a job.</span>
+              <span className="block text-purple-200">shouldn&rsquo;t feel like a job.</span>
             </motion.h1>
 
             <motion.p
               variants={fadeUp}
-              className="mt-6 max-w-md text-base text-muted sm:text-lg leading-relaxed"
+              className="mt-6 max-w-md text-base text-white/90 sm:text-lg leading-relaxed"
             >
-              NXT was born from a simple frustration: why do job boards make finding work so painful?
+              <img src="/images/logo.png" alt="NXT" className="inline h-[18px] w-auto -mt-1 mr-1 brightness-0 invert" /> was born from a simple frustration: why do job boards make finding work so painful?
               We set out to build something radically simpler — a place where quality trumps quantity,
               and every listing earns its spot.
             </motion.p>
-
-            <motion.div variants={fadeUp} className="mt-9 flex items-center gap-4">
-              <Link
-                href="/jobs"
-                className="button-glow rounded-full bg-purple px-7 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(124,92,252,0.35)] transition-transform hover:scale-[1.03] active:scale-[0.98]"
-              >
-                Explore open roles
-              </Link>
-              <Link
-                href="/categories"
-                className="group link-underline flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-foreground"
-              >
-                Browse categories
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
           </motion.div>
 
         </div>

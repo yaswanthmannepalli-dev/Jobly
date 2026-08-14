@@ -21,6 +21,9 @@ export default async function NewJobPage() {
     const salaryMin = salaryMinStr ? parseInt(salaryMinStr) : null
     const salaryMax = salaryMaxStr ? parseInt(salaryMaxStr) : null
     const featured = formData.get("featured") === "on"
+    const batch = formData.get("batch") as string || null
+    const isInternship = formData.get("isInternship") === "on"
+    const isFresher = formData.get("isFresher") === "on"
     
     // Parse newline-separated strings into JSON arrays
     const parseArray = (str: string) => JSON.stringify(str.split('\\n').map(s => s.trim()).filter(Boolean))
@@ -40,7 +43,6 @@ export default async function NewJobPage() {
         salaryMin,
         salaryMax,
         featured,
-        featured,
         description,
         responsibilities,
         requirements,
@@ -48,6 +50,9 @@ export default async function NewJobPage() {
         applicationUrl,
         source: "NXT. Admin",
         status: "active",
+        batch,
+        isInternship,
+        isFresher,
       }
     })
 
@@ -108,6 +113,21 @@ export default async function NewJobPage() {
                 <option key={c.id} value={c.name}>{c.name}</option>
               ))}
             </select>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-foreground">Batch (Optional)</label>
+            <input name="batch" placeholder="e.g. 2024" className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none transition focus:border-purple focus:ring-1 focus:ring-purple" />
+          </div>
+        </div>
+        
+        <div className="flex gap-4">
+          <div className="flex items-center gap-2">
+            <input type="checkbox" id="isInternship" name="isInternship" className="h-5 w-5 rounded border-line text-purple focus:ring-purple" />
+            <label htmlFor="isInternship" className="text-sm font-medium text-foreground cursor-pointer">Internship</label>
+          </div>
+          <div className="flex items-center gap-2">
+            <input type="checkbox" id="isFresher" name="isFresher" className="h-5 w-5 rounded border-line text-purple focus:ring-purple" />
+            <label htmlFor="isFresher" className="text-sm font-medium text-foreground cursor-pointer">Fresher / Entry Level</label>
           </div>
         </div>
         

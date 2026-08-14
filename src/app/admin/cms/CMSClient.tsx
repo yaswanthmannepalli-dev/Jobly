@@ -184,7 +184,7 @@ export default function CMSClient({ initialHero, initialNewsletter, initialWhyNx
       {/* Why NXT. Section Form */}
       <section className="bg-white rounded-2xl border border-line shadow-sm overflow-hidden">
         <div className="bg-surface px-6 py-4 border-b border-line">
-          <h2 className="font-semibold text-lg">Why NXT. Section</h2>
+          <h2 className="font-semibold text-lg flex items-center gap-2">Why <img src="/images/logo.png" alt="Logo" className="h-6 w-auto" /> Section</h2>
           <p className="text-sm text-muted">The features and benefits section.</p>
         </div>
         <form onSubmit={handleSaveWhyNxt} className="p-6 flex flex-col gap-6">

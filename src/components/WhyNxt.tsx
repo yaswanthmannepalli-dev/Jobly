@@ -3,28 +3,6 @@
 import { motion } from "framer-motion";
 import { CalendarClock, Zap, Gem, ShieldOff } from "lucide-react";
 
-const points = [
-  {
-    icon: CalendarClock,
-    title: "Refreshed every 24 hours",
-    text: "Our team reviews and adds new roles daily so you\u2019re never looking at stale listings.",
-  },
-  {
-    icon: Zap,
-    title: "Apply in seconds",
-    text: "No 10-step forms. See a role, click through, and land directly on the company\u2019s application page.",
-  },
-  {
-    icon: Gem,
-    title: "Quality over quantity",
-    text: "We list dozens of hand-picked roles, not thousands of duplicates. Every listing earns its spot.",
-  },
-  {
-    icon: ShieldOff,
-    title: "Zero sign-up required",
-    text: "Browse, filter, and save jobs without creating an account. Your privacy comes first.",
-  },
-];
 
 export default function WhyNxt({ content }: { content?: any }) {
   const c = content || {
@@ -47,9 +25,17 @@ export default function WhyNxt({ content }: { content?: any }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mb-10 text-2xl font-bold tracking-tight sm:text-3xl whitespace-pre-line"
+          className="mb-10 flex items-center gap-2 text-2xl font-bold tracking-tight sm:text-3xl whitespace-pre-line"
         >
-          {c.title}
+          {c.title.includes("NXT") ? (
+            <>
+              {c.title.split("NXT")[0]}
+              <img src="/images/logo.png" alt="Logo" className="h-8 w-auto inline-block -mt-1" />
+              {c.title.split("NXT.")[1] || c.title.split("NXT")[1]}
+            </>
+          ) : (
+            c.title
+          )}
         </motion.h2>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const container = {
   hidden: { opacity: 0 },
@@ -17,7 +18,7 @@ const slideUp = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -36,56 +37,42 @@ export default function Hero({ content }: { content?: any }) {
   const titleLines = c.title.split('\n');
 
   return (
-    <section className="relative overflow-hidden bg-background">
-      <div className="relative z-10 mx-auto max-w-6xl px-5 pt-16 pb-8 sm:px-8 md:pt-20 lg:pb-40">
+    <section className="relative w-full px-4 sm:px-6 md:px-8 pt-4 pb-8 md:pb-12 bg-background">
+      <div className="relative mx-auto max-w-[1400px] w-full min-h-[500px] md:min-h-[600px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden flex flex-col justify-end p-6 sm:p-10 md:p-16 group">
         
-        {/* LEFT: Content */}
-        <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col items-start text-left max-w-xl w-full relative z-20">
-          <motion.div
-            variants={slideUp}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 backdrop-blur-sm px-3.5 py-1.5 text-xs font-medium text-muted"
-          >
-            <Sparkles size={13} className="text-purple" />
-            Trusted by {c.stats1} {c.stats1Label} · Updated every {c.stats2} {c.stats2Label}
-          </motion.div>
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/Hero image.png"
+            alt="Hero Background"
+            fill
+            priority
+            className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+          />
+          {/* Overlay gradients for readability and brand tone */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#130d26]/90 via-[#130d26]/40 to-transparent" />
+          <div className="absolute inset-0 bg-purple/10 mix-blend-overlay" />
+        </div>
 
-          <h1 className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-7xl text-foreground whitespace-pre-line">
+        {/* Content */}
+        <motion.div variants={container} initial="hidden" animate="show" className="relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-8 md:gap-12">
+          <h1 className="text-3xl leading-[1.1] tracking-tight font-extrabold text-white sm:text-4xl md:text-5xl lg:text-6xl whitespace-pre-line drop-shadow-sm max-w-3xl">
             {titleLines.map((line: string, i: number) => (
-              <motion.span key={i} variants={slideUp} className={`block ${i === titleLines.length - 1 ? 'text-purple' : ''}`}>
+              <motion.span key={i} variants={slideUp} className={`block ${i === titleLines.length - 1 ? 'text-purple-200' : ''}`}>
                 {line}
               </motion.span>
             ))}
           </h1>
 
-          <motion.p
-            variants={slideUp}
-            className="mt-6 max-w-md text-base text-muted sm:text-lg"
-          >
-            {c.subtitle}
-          </motion.p>
-
-          <motion.div variants={slideUp} className="mt-9 flex flex-col sm:flex-row items-center justify-start gap-4 sm:gap-6 w-full sm:w-auto">
-            <Link href="/jobs" className="w-full sm:w-auto text-center rounded-full bg-purple px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-purple/90">
+          <motion.div variants={slideUp} className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto pb-1">
+            <Link href="/jobs" className="w-full sm:w-auto text-center rounded-full bg-purple px-6 py-2.5 text-xs md:text-sm font-semibold text-white transition-all hover:bg-white hover:text-purple shadow-lg shadow-purple/20 hover:scale-105 active:scale-95">
               Browse jobs
             </Link>
-            <Link href="/categories" className="w-full sm:w-auto text-center text-sm font-medium text-muted hover:text-foreground transition-colors">
+            <Link href="/categories" className="w-full sm:w-auto text-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-6 py-2.5 text-xs md:text-sm font-semibold text-white transition-all hover:bg-white/20 active:scale-95">
               Explore categories
             </Link>
           </motion.div>
         </motion.div>
-      </div>
-
-      {/* Background Image: Hidden on mobile, absolutely positioned on tablet/laptop/desktop */}
-      <div className="hidden md:flex absolute inset-0 z-0 items-end justify-end pointer-events-none">
-        <img
-          src={c.imageUrl || "/images/Hero image.png"}
-          alt="Hero Illustration"
-          className="h-full w-[75%] lg:w-[65%] xl:w-[60%] object-contain object-right-bottom"
-          style={{
-            maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 8%, black 15%, black 85%, rgba(0,0,0,0.5) 92%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 8%, black 15%, black 85%, rgba(0,0,0,0.5) 92%, transparent 100%)"
-          }}
-        />
       </div>
     </section>
   );

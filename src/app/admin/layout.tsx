@@ -7,8 +7,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Sidebar */}
       <aside className="w-64 flex-shrink-0 border-r border-line bg-white flex flex-col">
         <div className="flex h-16 items-center border-b border-line px-6">
-          <Link href="/" className="text-xl font-bold tracking-tight">
-            NXT<span className="text-purple">Admin</span>
+          <Link href="/" className="flex items-center">
+            <img src="/images/logo.png" alt="Logo" className="h-8 w-auto" />
           </Link>
         </div>
         

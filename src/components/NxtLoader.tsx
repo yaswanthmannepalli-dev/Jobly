@@ -52,9 +52,7 @@ export default function NxtLoader() {
 
       {/* Center Text */}
       <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-        <span className="text-2xl md:text-3xl font-bold tracking-tight text-black dark:text-white">
-          NXT<span className="text-purple">.</span>
-        </span>
+        <img src="/images/logo.png" alt="Logo" className="h-8 w-auto" />
       </div>
     </motion.div>
   );

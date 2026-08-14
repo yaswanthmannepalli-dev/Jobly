@@ -29,6 +29,9 @@ export default function CategoryPageClient({ category, initialJobs, categories }
     type: "",
     experience: "",
     workMode: "",
+    batch: "",
+    isInternship: false,
+    isFresher: false,
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -133,7 +136,7 @@ export default function CategoryPageClient({ category, initialJobs, categories }
             <p className="text-lg font-semibold text-foreground">No jobs match your filters</p>
             <p className="text-sm text-muted">Try adjusting the filters above.</p>
             <button
-              onClick={() => handleFilterChange({ search: "", category: displayName, location: "", type: "", experience: "", workMode: "" })}
+              onClick={() => handleFilterChange({ search: "", category: displayName, location: "", type: "", experience: "", workMode: "", batch: "", isInternship: false, isFresher: false })}
               className="mt-2 text-sm font-medium text-purple hover:underline"
             >
               Clear filters

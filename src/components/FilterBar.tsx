@@ -12,12 +12,16 @@ export interface Filters {
   experience: string;
   workMode: string;
   salaryMin?: number;
+  batch: string;
+  isInternship: boolean;
+  isFresher: boolean;
 }
 
 interface FilterBarProps {
   filters: Filters;
   categories: any[];
   locations?: string[];
+  batches?: string[];
   onChange: (filters: Filters) => void;
 }
 
@@ -34,7 +38,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
-export default function FilterBar({ filters, categories, locations, onChange }: FilterBarProps) {
+export default function FilterBar({ filters, categories, locations, batches, onChange }: FilterBarProps) {
   const handleSearchChange = (value: string) => {
     onChange({ ...filters, search: value });
   };
@@ -150,6 +154,41 @@ export default function FilterBar({ filters, categories, locations, onChange }: 
         <option value="1500000">₹15,00,000+</option>
         <option value="2500000">₹25,00,000+</option>
       </motion.select>
+      <motion.select
+        variants={item}
+        value={filters.batch}
+        onChange={handleSelect('batch')}
+        className={selectClass}
+        style={selectStyle}
+      >
+        <option value="">All Batches</option>
+        {batches && batches.map((b) => (
+          <option key={b} value={b}>
+            {b}
+          </option>
+        ))}
+      </motion.select>
+      
+      <motion.div variants={item} className="flex items-center gap-4 px-2">
+        <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-foreground">
+          <input 
+            type="checkbox" 
+            checked={filters.isInternship}
+            onChange={(e) => onChange({ ...filters, isInternship: e.target.checked })}
+            className="h-5 w-5 rounded border-line text-purple focus:ring-purple" 
+          />
+          Internships
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-foreground">
+          <input 
+            type="checkbox" 
+            checked={filters.isFresher}
+            onChange={(e) => onChange({ ...filters, isFresher: e.target.checked })}
+            className="h-5 w-5 rounded border-line text-purple focus:ring-purple" 
+          />
+          Freshers
+        </label>
+      </motion.div>
     </motion.div>
   );
 }
