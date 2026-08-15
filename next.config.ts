@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
     ],
   },
   serverExternalPackages: ["@react-three/rapier"],
-  turbopack: {},
 };
 
 export default nextConfig;
