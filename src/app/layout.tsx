@@ -5,18 +5,20 @@ import { cn } from "@/lib/utils";
 import PageTracker from "@/components/PageTracker";
 import PageTransition from "@/components/PageTransition";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 
 const sora = Sora({
   variable: "--font-sora",
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
+  display: 'swap',
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: 'swap',
 });
 
 import { getSiteContent } from "@/app/actions/cms";

@@ -51,9 +51,9 @@ export default function JobDetailsClient({ job }: { job: Job }) {
   return (
     <div className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
       <motion.div
-        initial={{ opacity: 0, x: -8 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.15 }}
       >
         <button
           onClick={() => window.history.length > 1 ? router.back() : router.push('/jobs')}
