@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 'use client';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, extend, useFrame, type ThreeElement, type ThreeEvent } from '@react-three/fiber';
@@ -193,19 +192,26 @@ function Band({
   // Composite the front/back images into the card's texture atlas (front = left
   // half, back = right half). Each image is drawn aspect-preserving (no stretch).
   const cardMap = useMemo(() => {
-    const baseMap = materials.base.map as THREE.Texture;
+    const baseMap = materials.base?.map as THREE.Texture | undefined | null;
     if (!frontImage && !backImage) return baseMap;
-
-    const baseImg = baseMap.image as HTMLImageElement;
-    const W = baseImg.width;
-    const H = baseImg.height;
+    
+    const baseImg = baseMap?.image as HTMLImageElement | undefined | null;
+    const W = baseImg ? baseImg.width : 1024;
+    const H = baseImg ? baseImg.height : 1024;
+    
     const canvas = document.createElement('canvas');
     canvas.width = W;
     canvas.height = H;
     const ctx = canvas.getContext('2d');
     if (!ctx) return baseMap;
+    
     // Keep the original baked atlas for the card edges and any untouched face.
-    ctx.drawImage(baseImg, 0, 0, W, H);
+    if (baseImg) {
+      ctx.drawImage(baseImg, 0, 0, W, H);
+    } else {
+      ctx.fillStyle = '#ffffff'; // Fallback background
+      ctx.fillRect(0, 0, W, H);
+    }
 
     const drawFitted = (img: HTMLImageElement, rect: typeof FRONT_UV_RECT) => {
       const rx = rect.x * W;
@@ -231,7 +237,7 @@ function Band({
 
     const composite = new THREE.CanvasTexture(canvas);
     composite.colorSpace = THREE.SRGBColorSpace;
-    composite.flipY = baseMap.flipY;
+    composite.flipY = baseMap?.flipY ?? false;
     composite.anisotropy = 16;
     composite.needsUpdate = true;
     return composite;
@@ -330,8 +336,8 @@ function Band({
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
-                map={cardMap}
-                map-anisotropy={16}
+                map={cardMap || undefined}
+                {...(cardMap ? { 'map-anisotropy': 16 } : {})}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
                 roughness={0.9}

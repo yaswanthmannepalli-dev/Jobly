@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Job } from "@/lib/types";
 import JobList from "@/components/JobList";
 import CategoriesClient from "./CategoriesClient";

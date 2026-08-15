@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Job } from "@/lib/types";
 import { timeAgo } from "@/lib/data";
 import BookmarkButton from "@/components/BookmarkButton";
+import ShareButton from "@/components/ShareButton";
 import MagneticArrow from "@/components/MagneticArrow";
 
 const itemVariants = {
@@ -67,7 +68,8 @@ export default function JobRow({ job }: { job: Job }) {
         </div>
 
         <div className="flex items-center gap-1.5 sm:gap-3">
-          <div className="hidden sm:block">
+          <div className="hidden sm:flex items-center gap-1">
+            <ShareButton jobId={job.id} />
             <BookmarkButton jobId={job.id} />
           </div>
           <span className="hidden text-sm font-medium text-foreground/70 transition-colors group-hover/row:text-purple md:inline">

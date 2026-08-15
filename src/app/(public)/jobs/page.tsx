@@ -1,4 +1,3 @@
-import { Briefcase } from "lucide-react";
 import JobsPageClient from "@/components/JobsPageClient";
 import { prisma } from "@/lib/prisma";
 import { Job } from "@/lib/types";
@@ -12,7 +11,8 @@ export const dynamic = "force-dynamic";
 
 import { getCategories } from "@/app/actions/categories";
 
-export default async function JobsPage({ searchParams }: { searchParams: { search?: string } }) {
+export default async function JobsPage(props: { searchParams: Promise<{ search?: string }> }) {
+  const searchParams = await props.searchParams;
   const dbJobs = await prisma.job.findMany({
     where: { status: "active" },
     orderBy: { postedAt: "desc" },

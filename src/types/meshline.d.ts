@@ -1,5 +1,4 @@
 declare module 'meshline' {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   import * as THREE from 'three';
   
   export class MeshLine extends THREE.BufferGeometry {}
@@ -20,7 +19,9 @@ declare module 'meshline' {
 declare global {
   namespace JSX {
     interface IntrinsicElements {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       meshLineGeometry: any;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       meshLineMaterial: any;
     }
   }

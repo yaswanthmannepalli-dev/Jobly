@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Briefcase, LayoutDashboard, LogOut, Users, Settings, Layers, BarChart3, Shield } from "lucide-react"
+import { Briefcase, LogOut, Users, Settings, Layers, BarChart3, Shield } from "lucide-react"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
