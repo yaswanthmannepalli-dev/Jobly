@@ -5,39 +5,36 @@ import { Job } from "@/lib/types";
 import { getSiteContent } from "@/app/actions/cms";
 import { getCategories } from "@/app/actions/categories";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function Home() {
-  const jobs = await prisma.job.findMany({
-    where: { status: "active" },
-    orderBy: { postedAt: "desc" },
-  });
-
-  const featuredJob = await prisma.job.findFirst({
-    where: { status: "active", featured: true },
-    orderBy: { postedAt: "desc" },
-  });
-
-  const categories = await getCategories();
-
-  const heroContent = await getSiteContent("hero", {
-    title: "Land the career\nyou deserve"
-  });
-
-  const newsletterContent = await getSiteContent("newsletter", {
-    title: "Never miss a great opportunity",
-    subtitle: "One email, once a day. Only the roles worth your time — zero spam, unsubscribe anytime."
-  });
-
-  const whyNxtContent = await getSiteContent("whyNxt", {
-    title: "Why NXT?",
-    points: [
-      { title: "Refreshed every 24 hours", text: "Our team reviews and adds new roles daily so you’re never looking at stale listings." },
-      { title: "Apply in seconds", text: "No 10-step forms. See a role, click through, and land directly on the company’s application page." },
-      { title: "Quality over quantity", text: "We list dozens of hand-picked roles, not thousands of duplicates. Every listing earns its spot." },
-      { title: "Zero sign-up required", text: "Browse, filter, and save jobs without creating an account. Your privacy comes first." }
-    ]
-  });
+  const [jobs, featuredJob, categories, heroContent, newsletterContent, whyNxtContent] = await Promise.all([
+    prisma.job.findMany({
+      where: { status: "active" },
+      orderBy: { postedAt: "desc" },
+    }),
+    prisma.job.findFirst({
+      where: { status: "active", featured: true },
+      orderBy: { postedAt: "desc" },
+    }),
+    getCategories(),
+    getSiteContent("hero", {
+      title: "Land the career\nyou deserve"
+    }),
+    getSiteContent("newsletter", {
+      title: "Never miss a great opportunity",
+      subtitle: "One email, once a day. Only the roles worth your time — zero spam, unsubscribe anytime."
+    }),
+    getSiteContent("whyNxt", {
+      title: "Why NXT?",
+      points: [
+        { title: "Refreshed every 24 hours", text: "Our team reviews and adds new roles daily so you’re never looking at stale listings." },
+        { title: "Apply in seconds", text: "No 10-step forms. See a role, click through, and land directly on the company’s application page." },
+        { title: "Quality over quantity", text: "We list dozens of hand-picked roles, not thousands of duplicates. Every listing earns its spot." },
+        { title: "Zero sign-up required", text: "Browse, filter, and save jobs without creating an account. Your privacy comes first." }
+      ]
+    })
+  ]);
 
   // Convert Prisma model fields (JSON strings) to objects matching the Job type
   const parsedJobs: Job[] = jobs.map((job) => ({

@@ -1,24 +1,30 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, unstable_cache } from "next/cache";
+import { cache } from "react";
 import { auth } from "@/auth";
 
-export async function getSiteContent<T>(section: string, defaultData: T): Promise<T> {
-  try {
-    const content = await prisma.siteContent.findUnique({
-      where: { section }
-    });
-    
-    if (content && content.data) {
-      return JSON.parse(content.data);
-    }
-  } catch (error) {
-    console.error(`Failed to fetch CMS content for ${section}:`, error);
-  }
-  
-  return defaultData;
-}
+export const getSiteContent = cache(async function getSiteContent<T>(section: string, defaultData: T): Promise<T> {
+  return unstable_cache(
+    async () => {
+      try {
+        const content = await prisma.siteContent.findUnique({
+          where: { section }
+        });
+        
+        if (content && content.data) {
+          return JSON.parse(content.data);
+        }
+      } catch (error) {
+        console.error(`Failed to fetch CMS content for ${section}:`, error);
+      }
+      return defaultData;
+    },
+    [`cms-content-${section}`],
+    { revalidate: 300, tags: ["cms", `cms-${section}`] }
+  )();
+});
 
 export async function updateSiteContent<T>(section: string, data: T) {
   const session = await auth();

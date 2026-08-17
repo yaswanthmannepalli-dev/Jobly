@@ -30,10 +30,10 @@ export default function JobRow({ job }: { job: Job }) {
     <motion.div variants={itemVariants} layout>
       <Link
         href={`/jobs/${job.id}`}
-        className="group/row relative flex items-center gap-4 rounded-2xl border border-transparent px-4 py-4 hover-lift hover:border-line hover:bg-surface hover:shadow-[0_16px_40px_rgba(90,60,200,0.10)] sm:px-5"
+        className="group/row relative flex items-center gap-4 rounded-[5px] border border-line/60 bg-surface/40 px-4 py-4 transition-colors duration-150 hover:border-line hover:bg-surface sm:px-5"
       >
         <motion.div
-          className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface ring-1 ring-line transition-transform duration-300 group-hover/row:scale-105"
+          className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[5px] bg-surface border border-line transition-transform duration-150 group-hover/row:scale-105"
         >
           <Image
             src={job.companyLogo}
@@ -51,7 +51,7 @@ export default function JobRow({ job }: { job: Job }) {
               {job.title}
             </h3>
             {job.verified && (
-              <span className="hidden rounded-full bg-purple-tint px-2 py-0.5 text-[10px] font-medium text-purple-dark sm:inline-block">
+              <span className="hidden rounded-[6px] bg-purple-tint px-2 py-0.5 text-[10px] font-medium text-purple-dark sm:inline-block">
                 Listing active
               </span>
             )}
@@ -60,7 +60,7 @@ export default function JobRow({ job }: { job: Job }) {
             {job.company} · {job.location}
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
-            <span className="rounded-full bg-surface px-2 py-0.5 ring-1 ring-line">
+            <span className="rounded-[6px] bg-surface px-2 py-0.5 border border-line">
               {job.type}
             </span>
             <span suppressHydrationWarning>{mounted ? timeAgo(job.postedAt) : ""}</span>

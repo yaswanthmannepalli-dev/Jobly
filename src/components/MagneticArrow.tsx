@@ -31,7 +31,7 @@ export default function MagneticArrow({ size = 36 }: { size?: number }) {
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      className="group/arrow flex items-center justify-center rounded-full border border-line bg-white transition-colors group-hover/row:border-purple/40 group-hover/row:bg-purple-tint"
+      className="group/arrow flex items-center justify-center rounded-full border border-line bg-surface transition-colors duration-150 group-hover/row:border-purple/40 group-hover/row:bg-purple-tint"
       style={{ width: size, height: size }}
     >
       <motion.div style={{ x: springX, y: springY }}>

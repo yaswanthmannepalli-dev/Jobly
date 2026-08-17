@@ -22,10 +22,10 @@ export default function JobList({ jobs, hidePagination = false }: { jobs: Job[];
 
   if (jobs.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-line py-16 text-center">
+      <div className="flex flex-col items-center gap-3 rounded-[5px] border border-dashed border-line bg-surface/30 py-16 text-center">
         <SearchX size={28} className="text-muted" />
         <p className="text-sm font-medium text-foreground">No jobs match yet</p>
-        <p className="max-w-xs text-sm text-muted">
+        <p className="max-w-xs text-sm text-muted text-justify leading-relaxed">
           Try a different job title, company, or city — new roles are added
           every day.
         </p>
@@ -45,7 +45,7 @@ export default function JobList({ jobs, hidePagination = false }: { jobs: Job[];
         initial="hidden"
         animate="show"
         layout
-        className="flex flex-col divide-y divide-line/70"
+        className="flex flex-col gap-3"
       >
         <AnimatePresence mode="popLayout">
           {currentJobs.map((job) => (
@@ -60,7 +60,7 @@ export default function JobList({ jobs, hidePagination = false }: { jobs: Job[];
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors hover:border-purple/30 hover:text-purple disabled:pointer-events-none disabled:opacity-50"
+            className="flex h-9 w-9 items-center justify-center rounded-[6px] border border-line bg-surface text-muted transition-colors duration-150 hover:border-purple/40 hover:text-purple disabled:pointer-events-none disabled:opacity-50"
             aria-label="Previous Page"
           >
             <ChevronLeft size={18} />
@@ -71,10 +71,10 @@ export default function JobList({ jobs, hidePagination = false }: { jobs: Job[];
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium transition-colors ${
+                className={`flex h-9 w-9 items-center justify-center rounded-[6px] text-sm font-medium transition-colors duration-150 ${
                   currentPage === page
-                    ? "bg-purple text-white shadow-md shadow-purple/20"
-                    : "text-muted hover:bg-surface hover:text-foreground"
+                    ? "bg-purple text-white"
+                    : "border border-line bg-surface text-muted hover:border-purple/40 hover:text-foreground"
                 }`}
               >
                 {page}
@@ -85,7 +85,7 @@ export default function JobList({ jobs, hidePagination = false }: { jobs: Job[];
           <button
             onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors hover:border-purple/30 hover:text-purple disabled:pointer-events-none disabled:opacity-50"
+            className="flex h-9 w-9 items-center justify-center rounded-[6px] border border-line bg-surface text-muted transition-colors duration-150 hover:border-purple/40 hover:text-purple disabled:pointer-events-none disabled:opacity-50"
             aria-label="Next Page"
           >
             <ChevronRight size={18} />

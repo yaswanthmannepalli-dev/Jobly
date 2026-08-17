@@ -18,11 +18,11 @@ export default function SavedJobsClient({ initialJobs }: { initialJobs: Job[] })
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
         className="mb-8 flex items-center gap-3"
       >
-        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-tint">
+        <span className="flex h-11 w-11 items-center justify-center rounded-[5px] border border-line bg-purple-tint">
           <Bookmark size={19} className="text-purple" />
         </span>
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Saved Jobs</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Saved Jobs</h1>
           <p className="text-sm text-muted">
             Saved on this device — no account needed.
           </p>
@@ -30,7 +30,7 @@ export default function SavedJobsClient({ initialJobs }: { initialJobs: Job[] })
       </motion.div>
 
       {!hydrated ? null : savedJobs.length === 0 ? (
-        <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-line py-16 text-center">
+        <div className="flex flex-col items-center gap-2 rounded-[5px] border border-dashed border-line bg-surface/30 py-16 text-center">
           <p className="text-sm font-medium text-foreground">
             Nothing saved yet
           </p>

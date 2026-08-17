@@ -1,14 +1,21 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, unstable_cache } from "next/cache";
+import { cache } from "react";
 import { auth } from "@/auth";
 
-export async function getCategories() {
-  return await prisma.category.findMany({
-    orderBy: { createdAt: 'asc' }
-  });
-}
+export const getCategories = cache(async function getCategories() {
+  return unstable_cache(
+    async () => {
+      return await prisma.category.findMany({
+        orderBy: { createdAt: 'asc' }
+      });
+    },
+    ["categories-list"],
+    { revalidate: 300, tags: ["categories"] }
+  )();
+});
 
 export async function addCategory(name: string, icon: string) {
   const session = await auth();

@@ -44,13 +44,13 @@ export default function CategorySection({
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
         className="mb-10 flex flex-col gap-2"
       >
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           Browse by category
         </h2>
-        <p className="text-sm text-muted sm:text-base">
+        <p className="text-sm text-muted sm:text-base text-justify leading-relaxed">
           Skip the endless scrolling. Zero in on your speciality and find what fits.
         </p>
       </motion.div>
@@ -65,20 +65,16 @@ export default function CategorySection({
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] as const }}
-              whileHover={{ y: -4 }}
+              transition={{ duration: 0.4, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] as const }}
               onClick={() => handleCategoryClick(category.name)}
               disabled={isNavigating}
-              className="group flex min-w-[136px] shrink-0 flex-col items-start gap-3 rounded-2xl border px-5 py-5 text-left transition-colors sm:min-w-0 border-line bg-white hover:border-purple/30 hover:bg-surface cursor-pointer"
+              className="group flex min-w-[136px] shrink-0 flex-col items-start gap-3 rounded-[5px] border border-line bg-surface/50 p-5 text-left transition-colors duration-150 hover:border-purple/40 hover:bg-surface sm:min-w-0 cursor-pointer"
             >
-              <motion.span
-                whileHover={{ rotate: -8, scale: 1.08 }}
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface transition-colors group-hover:bg-white"
-              >
+              <span className="flex h-10 w-10 items-center justify-center rounded-[5px] border border-line bg-surface transition-colors duration-150 group-hover:bg-surface-2">
                 <Icon size={19} className="text-purple" strokeWidth={1.7} />
-              </motion.span>
+              </span>
               <div>
-                <p className="text-sm font-semibold text-foreground">{category.name}</p>
+                <p className="text-sm font-medium text-foreground">{category.name}</p>
                 <p className="text-xs text-muted group-hover:text-purple-dark">
                   {count} open roles
                 </p>

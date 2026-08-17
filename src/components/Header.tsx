@@ -6,11 +6,10 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Bookmark, Search } from "lucide-react";
 import { useSavedJobs } from "@/hooks/useSavedJobs";
-import dynamic from "next/dynamic";
-
-const Lanyard = dynamic(() => import("@/components/Lanyard"), { ssr: false });
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
+  { href: "/", label: "Home" },
   { href: "/jobs", label: "Jobs" },
   { href: "/categories", label: "Categories" },
   { href: "/about", label: "About" },
@@ -63,24 +62,11 @@ export default function SiteHeader() {
 
   return (
     <>
-      {/* Lanyard Badge overlay */}
-      <div className="fixed top-[-20px] right-0 z-[60] w-[250px] h-[600px] pointer-events-none hidden md:block">
-        <div className="w-full h-full">
-          <Lanyard 
-            position={[0, 0, 15]} 
-            gravity={[0, -40, 0]} 
-            frontImage="/images/Lanyard Card png.png"
-            backImage="/images/Lanyard Card png.png"
-            lanyardImage="/assets/lanyard/nxt-band.svg"
-          />
-        </div>
-      </div>
-
-      <header className={`sticky top-0 z-[70] transition-colors ${scrolled ? "border-b border-line/70 bg-background/80 backdrop-blur-md" : "border-b border-transparent bg-background"}`}>
+      <header className={`sticky top-0 z-[70] transition-colors duration-150 ${scrolled ? "border-b border-line/70 bg-background/80 backdrop-blur-md" : "border-b border-transparent bg-background"}`}>
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-5 sm:px-8">
           {/* Logo */}
           <Link href="/" className="flex shrink-0 items-center gap-2">
-            <img src="/images/logo.png" alt="Logo" className="h-8 w-auto" />
+            <img src="/images/logo.png" alt="Logo" className="h-8 w-auto dark:brightness-0 dark:invert transition-all duration-150" />
           </Link>
 
           {/* Search bar — center */}
@@ -112,7 +98,7 @@ export default function SiteHeader() {
                 >
                   <Search size={14} />
                   <span>Search jobs...</span>
-                  <kbd className="ml-auto rounded border border-line bg-white px-1.5 py-0.5 text-[10px] text-muted">
+                  <kbd className="ml-auto rounded border border-line bg-surface dark:bg-surface-2 px-1.5 py-0.5 text-[10px] text-muted">
                     /
                   </kbd>
                 </button>
@@ -121,7 +107,7 @@ export default function SiteHeader() {
           </div>
 
           {/* Nav links — right */}
-          <nav className="hidden items-center gap-8 md:flex ml-auto">
+          <nav className="hidden items-center gap-6 md:flex ml-auto">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -131,16 +117,20 @@ export default function SiteHeader() {
                 {link.label}
               </Link>
             ))}
+            <ThemeToggle />
           </nav>
 
-          {/* Mobile menu toggle */}
-          <button
-            className="flex items-center justify-center rounded-full p-2 text-foreground md:hidden ml-auto"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {/* Mobile elements */}
+          <div className="flex items-center gap-2 md:hidden ml-auto">
+            <ThemeToggle />
+            <button
+              className="flex items-center justify-center rounded-[6px] p-2 text-foreground"
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              {open ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
 
         <AnimatePresence>

@@ -30,15 +30,16 @@ export default async function CategoriesIndex() {
   return (
     <main className="flex flex-col items-center gap-8 py-12">
       <section className="w-full max-w-6xl px-5 sm:px-8">
-        <h1 className="flex items-center gap-2 text-3xl font-bold">
-          Categories
-        </h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Categories</h1>
+        <p className="mt-1 text-sm text-muted">Find roles by what you do best.</p>
         <CategoriesClient categories={categories} parsedJobs={parsedJobs} />
       </section>
       {/* All Jobs */}
       <section className="w-full max-w-6xl px-5 sm:px-8">
-        <h2 className="mt-12 text-2xl font-bold">All Jobs</h2>
-        <JobList jobs={parsedJobs} />
+        <h2 className="mt-4 text-2xl font-semibold tracking-tight">All Jobs</h2>
+        <div className="mt-4">
+          <JobList jobs={parsedJobs} />
+        </div>
       </section>
     </main>
   );

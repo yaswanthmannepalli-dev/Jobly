@@ -22,6 +22,7 @@ const inter = Inter({
 });
 
 import { getSiteContent } from "@/app/actions/cms";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSiteContent("seo", {
@@ -34,6 +35,22 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const themeInitScript = `
+  (function() {
+    try {
+      var stored = localStorage.getItem('nxt-theme');
+      var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.style.colorScheme = 'dark';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.style.colorScheme = 'light';
+      }
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,11 +59,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={cn("h-full", "antialiased", sora.variable, inter.variable, "font-sans", geist.variable)}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <PageTracker />
-        <PageTransition>{children}</PageTransition>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-150">
+        <ThemeProvider>
+          <PageTracker />
+          <PageTransition>{children}</PageTransition>
+        </ThemeProvider>
       </body>
     </html>
   );

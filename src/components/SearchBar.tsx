@@ -46,25 +46,12 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
       <motion.div
         layout
         onClick={!open ? openSearch : undefined}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-        className={`relative flex items-center overflow-hidden rounded-full border border-line bg-surface shadow-[0_1px_0_rgba(20,18,31,0.02)] ${
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
+        className={`relative flex items-center overflow-hidden rounded-[6px] border border-line bg-surface ${
           open ? "w-full cursor-text px-2" : "w-full cursor-pointer justify-center px-4"
         }`}
-        style={{ height: 56 }}
+        style={{ height: 48 }}
       >
-        {/* glowing point / light sweep, only visible mid-transition */}
-        <AnimatePresence>
-          {open && (
-            <motion.span
-              key="glow"
-              initial={{ opacity: 0.9, scaleX: 0 }}
-              animate={{ opacity: 0, scaleX: 1 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="pointer-events-none absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-purple/0 via-purple/25 to-purple/0"
-            />
-          )}
-        </AnimatePresence>
-
         {!open ? (
           <motion.span
             key="closed-label"
@@ -74,7 +61,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
           >
             <Search size={16} />
             Search jobs...
-            <kbd className="ml-1 rounded border border-line bg-white px-1.5 py-0.5 text-[10px] text-muted">
+            <kbd className="ml-1 rounded-[6px] border border-line bg-surface dark:bg-surface-2 px-1.5 py-0.5 text-[10px] text-muted">
               /
             </kbd>
           </motion.span>
@@ -85,7 +72,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
               ref={inputRef}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.22, duration: 0.35 }}
+              transition={{ delay: 0.15, duration: 0.3 }}
               value={value}
               onChange={(e) => onChange(e.target.value)}
               placeholder="Search by job, company or city..."
@@ -94,7 +81,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
             <button
               onClick={closeSearch}
               aria-label="Close search"
-              className="mr-1.5 flex shrink-0 items-center justify-center rounded-full p-2 text-muted transition-colors hover:bg-white hover:text-foreground"
+              className="mr-1.5 flex shrink-0 items-center justify-center rounded-[6px] p-2 text-muted transition-colors duration-150 hover:bg-surface-2 hover:text-foreground"
             >
               <X size={16} />
             </button>

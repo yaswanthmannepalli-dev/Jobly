@@ -113,46 +113,39 @@ const timeline = [
   },
 ];
 
+import TypingHeading from "@/components/TypingHeading";
+
 export default function AboutPageClient() {
   return (
     <main>
-      {/* Hero Section */}
-      <section className="relative w-full px-4 sm:px-6 md:px-8 pt-4 pb-8 md:pb-12 bg-background">
-        <div className="relative mx-auto max-w-[1400px] w-full min-h-[500px] md:min-h-[600px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden flex flex-col justify-end p-6 sm:p-10 md:p-16">
-          
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src="/images/Aboutus page png.png"
-              alt="About Background"
-              className="h-full w-full object-cover"
-            />
-            {/* Subtle Purple Blur Overlay */}
-            <div className="absolute inset-0 bg-purple/20 backdrop-blur-[2px]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
-          </div>
-
-          {/* Content Side */}
-          <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center text-center">
-            <motion.h1
-              variants={fadeUp}
-              className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl text-white"
-            >
-              We believe job hunting
-              <span className="block text-purple-200">shouldn&rsquo;t feel like a job.</span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-6 max-w-md text-base text-white/90 sm:text-lg leading-relaxed"
-            >
-              <img src="/images/logo.png" alt="NXT" className="inline h-[18px] w-auto -mt-1 mr-1 brightness-0 invert" /> was born from a simple frustration: why do job boards make finding work so painful?
-              We set out to build something radically simpler — a place where quality trumps quantity,
-              and every listing earns its spot.
-            </motion.p>
-          </motion.div>
-
+      {/* Full-bleed Hero Section */}
+      <section className="relative w-full min-h-[480px] md:min-h-[550px] overflow-hidden flex flex-col justify-end px-6 py-12 sm:px-12 md:px-20 bg-background">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/Aboutus page png.png"
+            alt="About Background"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#130d26]/95 via-[#130d26]/60 to-transparent" />
         </div>
+
+        {/* Content */}
+        <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center text-center">
+          <TypingHeading
+            text="We believe job hunting shouldn't feel like a job."
+            as="h1"
+            speed={35}
+            className="text-3xl font-semibold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl text-white"
+          />
+
+          <motion.p
+            variants={fadeUp}
+            className="mt-4 max-w-md text-sm text-white/85 sm:text-base leading-relaxed"
+          >
+            Built to cut the noise. Only roles worth your time.
+          </motion.p>
+        </motion.div>
       </section>
 
       {/* Stats Bar */}
@@ -168,7 +161,7 @@ export default function AboutPageClient() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="text-center"
               >
-                <p className="text-3xl font-bold text-purple sm:text-4xl">{stat.value}</p>
+                <p className="text-3xl font-semibold text-purple sm:text-4xl">{stat.value}</p>
                 <p className="mt-1 text-sm text-muted">{stat.label}</p>
               </motion.div>
             ))}
@@ -185,8 +178,8 @@ export default function AboutPageClient() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">How it all started</h2>
-          <p className="mt-3 text-muted sm:text-lg">
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">How it all started</h2>
+          <p className="mt-3 text-sm text-muted leading-relaxed">
             From a weekend hack to thousands of daily users.
           </p>
         </motion.div>
@@ -207,19 +200,19 @@ export default function AboutPageClient() {
               }`}
             >
               {/* Dot */}
-              <div className="absolute left-4 top-1.5 z-10 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-purple bg-white sm:left-1/2" />
+              <div className="absolute left-4 top-1.5 z-10 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-purple bg-background sm:left-1/2" />
 
               {/* Content Card */}
               <div
-                className={`ml-10 flex-1 rounded-2xl border border-line bg-white p-5 sm:ml-0 ${
+                className={`ml-10 flex-1 rounded-[5px] border border-line bg-surface p-5 sm:ml-0 ${
                   i % 2 === 0 ? "sm:mr-[52%]" : "sm:ml-[52%]"
                 }`}
               >
-                <span className="inline-block rounded-full bg-purple-tint px-3 py-1 text-xs font-semibold text-purple">
+                <span className="inline-block rounded-[6px] bg-purple-tint px-3 py-1 text-xs font-semibold text-purple">
                   {item.year}
                 </span>
                 <h3 className="mt-3 text-base font-semibold text-foreground">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed">{item.description}</p>
+                <p className="mt-2 text-sm text-muted leading-relaxed text-justify">{item.description}</p>
               </div>
             </motion.div>
           ))}
@@ -236,8 +229,8 @@ export default function AboutPageClient() {
             transition={{ duration: 0.6 }}
             className="mb-12 text-center"
           >
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">What we stand for</h2>
-            <p className="mt-3 text-muted sm:text-lg">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">What we stand for</h2>
+            <p className="mt-3 text-sm text-muted leading-relaxed">
               Six principles that guide every decision we make.
             </p>
           </motion.div>
@@ -250,14 +243,13 @@ export default function AboutPageClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.55, delay: i * 0.08 }}
-                whileHover={{ y: -4 }}
-                className="rounded-2xl border border-line bg-white p-6"
+                className="rounded-[5px] border border-line bg-surface p-6 transition-colors duration-150 hover:border-purple/40"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-tint">
+                <span className="flex h-11 w-11 items-center justify-center rounded-[5px] border border-line bg-purple-tint">
                   <v.icon size={20} className="text-purple" strokeWidth={1.7} />
                 </span>
                 <h3 className="mt-4 text-base font-semibold text-foreground">{v.title}</h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed">{v.description}</p>
+                <p className="mt-2 text-sm text-muted leading-relaxed text-justify">{v.description}</p>
               </motion.div>
             ))}
           </div>
@@ -267,41 +259,41 @@ export default function AboutPageClient() {
       {/* Why NXT. */}
       <WhyNxt />
 
-      {/* CTA */}
-      <section className="mx-auto max-w-6xl px-5 py-6 sm:px-8 sm:py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-purple to-purple-dark px-6 py-8 text-center text-white sm:px-10 sm:py-10"
-        >
-          <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-          <div className="pointer-events-none absolute -right-16 -bottom-16 h-56 w-56 rounded-full bg-white/8 blur-3xl" />
+      {/* CTA Section */}
+      <section className="relative w-full overflow-hidden bg-surface/50 py-12 sm:py-16 my-8">
+        {/* Background Gradient Blobs */}
+        <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-purple/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-purple-tint/60 blur-3xl" />
 
-          <div className="relative">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Ready to find your next role?
+        <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+          >
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl text-foreground">
+              Your next role awaits
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-white/80 sm:text-lg">
-              Join thousands of professionals who&rsquo;ve already made the switch to a smarter, faster job search.
+            <p className="mx-auto mt-3 max-w-md text-sm text-muted leading-relaxed">
+              Thousands of professionals already made the switch.
             </p>
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link
                 href="/jobs"
-                className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-purple shadow-lg transition-transform hover:scale-[1.03] active:scale-[0.98]"
+                className="rounded-[6px] bg-purple px-8 py-3 text-sm font-medium text-white transition-colors duration-150 hover:bg-purple/90 active:scale-[0.98]"
               >
                 Start exploring
               </Link>
               <Link
                 href="/categories"
-                className="rounded-full border border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-white/10"
+                className="rounded-[6px] border border-line bg-surface px-8 py-3 text-sm font-medium text-foreground transition-colors duration-150 hover:border-purple/40"
               >
                 View categories
               </Link>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </section>
     </main>
   );

@@ -66,14 +66,13 @@ export default function JobDetailsClient({ job }: { job: Job }) {
 
       {/* Header */}
       <motion.div
-        custom={0}
         variants={fadeUp}
         initial="hidden"
         animate="show"
         className="flex items-start justify-between gap-4"
       >
         <div className="flex items-start gap-4">
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-surface ring-1 ring-line">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[5px] bg-surface border border-line">
             <Image
               src={job.companyLogo}
               alt={`${job.company} logo`}
@@ -84,7 +83,7 @@ export default function JobDetailsClient({ job }: { job: Job }) {
             />
           </div>
           <div>
-            <h1 className="text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
+            <h1 className="text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
               {job.title}
             </h1>
             <p className="mt-1 text-base text-muted">{job.company}</p>
@@ -109,12 +108,12 @@ export default function JobDetailsClient({ job }: { job: Job }) {
 
       <div className="mt-3 flex flex-wrap gap-2">
         {job.verified && (
-          <span className="rounded-full bg-purple-tint px-2.5 py-1 text-xs font-medium text-purple-dark">
+          <span className="rounded-[6px] bg-purple-tint px-2.5 py-1 text-xs font-medium text-purple-dark">
             Listing active
           </span>
         )}
         {deadline && (
-          <span className="rounded-full bg-surface px-2.5 py-1 text-xs font-medium text-muted ring-1 ring-line">
+          <span className="rounded-[6px] bg-surface px-2.5 py-1 text-xs font-medium text-muted border border-line">
             {deadline}
           </span>
         )}
@@ -126,7 +125,7 @@ export default function JobDetailsClient({ job }: { job: Job }) {
         variants={fadeUp}
         initial="hidden"
         animate="show"
-        className="mt-8 rounded-2xl border border-line bg-surface p-6"
+        className="mt-8 rounded-[5px] border border-line bg-surface p-6"
       >
         <p className="text-xs font-semibold uppercase tracking-wide text-purple">
           20 sec overview
@@ -146,7 +145,7 @@ export default function JobDetailsClient({ job }: { job: Job }) {
         variants={fadeUp}
         initial="hidden"
         animate="show"
-        className="mt-6 rounded-2xl border border-line p-6"
+        className="mt-6 rounded-[5px] border border-line p-6 bg-surface/40"
       >
         <p className="text-xs font-semibold uppercase tracking-wide text-muted">
           Before you apply
@@ -168,14 +167,14 @@ export default function JobDetailsClient({ job }: { job: Job }) {
       {/* Description */}
       <motion.section custom={3} variants={fadeUp} initial="hidden" animate="show" className="mt-10">
         <h2 className="text-lg font-semibold tracking-tight">Job Overview</h2>
-        <p className="mt-3 text-sm leading-relaxed text-foreground/80">{job.description}</p>
+        <p className="mt-3 text-sm leading-relaxed text-foreground/80 text-justify">{job.description}</p>
       </motion.section>
 
       <motion.section custom={4} variants={fadeUp} initial="hidden" animate="show" className="mt-8">
         <h2 className="text-lg font-semibold tracking-tight">Responsibilities</h2>
         <ul className="mt-3 space-y-2">
           {job.responsibilities.map((r) => (
-            <li key={r} className="flex gap-2 text-sm leading-relaxed text-foreground/80">
+            <li key={r} className="flex gap-2 text-sm leading-relaxed text-foreground/80 text-justify">
               <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-purple" />
               {r}
             </li>
@@ -187,7 +186,7 @@ export default function JobDetailsClient({ job }: { job: Job }) {
         <h2 className="text-lg font-semibold tracking-tight">Requirements</h2>
         <ul className="mt-3 space-y-2">
           {job.requirements.map((r) => (
-            <li key={r} className="flex gap-2 text-sm leading-relaxed text-foreground/80">
+            <li key={r} className="flex gap-2 text-sm leading-relaxed text-foreground/80 text-justify">
               <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-purple" />
               {r}
             </li>
@@ -197,7 +196,7 @@ export default function JobDetailsClient({ job }: { job: Job }) {
 
       <motion.section custom={6} variants={fadeUp} initial="hidden" animate="show" className="mt-8">
         <h2 className="text-lg font-semibold tracking-tight">About {job.company}</h2>
-        <p className="mt-3 text-sm leading-relaxed text-foreground/80">
+        <p className="mt-3 text-sm leading-relaxed text-foreground/80 text-justify">
           {aboutText 
             ? aboutText 
             : `${job.company} is hiring via ${job.source}. Applications are reviewed directly by the company’s hiring team.`}
@@ -210,7 +209,7 @@ export default function JobDetailsClient({ job }: { job: Job }) {
           {job.skills.map((s) => (
             <span
               key={s}
-              className="rounded-full bg-surface px-3 py-1.5 text-xs font-medium text-foreground/75 ring-1 ring-line"
+              className="rounded-[6px] bg-surface px-3 py-1.5 text-xs font-medium text-foreground/75 border border-line"
             >
               {s}
             </span>
@@ -339,18 +338,10 @@ function ApplyButton({ job }: { job: Job }) {
 
       <motion.button
         onClick={handleApplyClick}
-        whileHover={{ scale: 1.015 }}
-        whileTap={{ scale: 0.97 }}
-        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] as const }}
-        className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-purple px-6 py-4 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(124,92,252,0.38)]"
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.15 }}
+        className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-[6px] bg-purple px-6 py-3.5 text-sm font-medium text-white transition-colors duration-150 hover:bg-purple/90"
       >
-        <motion.span
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0"
-          initial={{ x: "-120%" }}
-          animate={{ x: "120%" }}
-          transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.2, ease: "easeInOut" }}
-        />
         <span className="relative">Apply Job</span>
         <ExternalLink size={15} className="relative transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </motion.button>

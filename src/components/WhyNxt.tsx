@@ -24,8 +24,8 @@ export default function WhyNxt({ content }: { content?: { title: string; points:
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mb-10 flex items-center gap-2 text-2xl font-bold tracking-tight sm:text-3xl whitespace-pre-line"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+          className="mb-10 flex items-center gap-2 text-2xl font-semibold tracking-tight sm:text-3xl whitespace-pre-line"
         >
           {c.title.includes("NXT") ? (
             <>
@@ -47,17 +47,16 @@ export default function WhyNxt({ content }: { content?: { title: string; points:
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as const }}
-                whileHover={{ y: -4 }}
-                className="rounded-2xl border border-line bg-white p-6"
+                transition={{ duration: 0.4, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] as const }}
+                className="rounded-[5px] border border-line bg-surface p-6 hover:border-purple/30 transition-colors duration-150"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-tint">
+                <span className="flex h-10 w-10 items-center justify-center rounded-[5px] border border-line bg-purple-tint">
                   <Icon size={19} className="text-purple" strokeWidth={1.7} />
                 </span>
                 <h3 className="mt-4 text-sm font-semibold text-foreground whitespace-pre-line">
                   {p.title}
                 </h3>
-                <p className="mt-1.5 text-sm text-muted whitespace-pre-line">{p.text}</p>
+                <p className="mt-1.5 text-sm text-muted text-justify leading-relaxed whitespace-pre-line">{p.text}</p>
               </motion.div>
             );
           })}

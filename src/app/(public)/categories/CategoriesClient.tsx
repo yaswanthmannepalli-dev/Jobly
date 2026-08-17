@@ -17,20 +17,20 @@ export default function CategoriesClient({ categories, parsedJobs }: { categorie
 
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 mt-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-6">
         {currentCategories.map((cat) => {
           const count = parsedJobs.filter((j: Job) => j.category === cat.name).length;
           return (
             <Link
               key={cat.id}
               href={`/categories/${cat.name.toLowerCase()}`}
-              className="group flex items-center justify-between rounded-2xl border border-line bg-white p-5 transition-colors hover:border-purple hover:shadow-sm"
+              className="group flex items-center justify-between rounded-[5px] border border-line bg-surface p-5 transition-colors duration-150 hover:border-purple/40"
             >
               <div>
                 <p className="text-sm font-semibold text-foreground">{cat.name}</p>
-                <p className="text-xs text-muted group-hover:text-purple-dark">{count} open roles</p>
+                <p className="text-xs text-muted mt-0.5 group-hover:text-purple-dark transition-colors duration-150">{count} open roles</p>
               </div>
-              <ChevronRight size={18} className="text-muted transition-transform group-hover:translate-x-1 group-hover:text-purple" />
+              <ChevronRight size={16} className="text-muted transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-purple" />
             </Link>
           );
         })}
